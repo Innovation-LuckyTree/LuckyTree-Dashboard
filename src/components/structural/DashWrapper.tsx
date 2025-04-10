@@ -42,7 +42,11 @@ export const DashWrapper: FC = () => {
                 </Space>
               </Space>
             </Header>
-            <Content><Outlet/></Content>
+            <Content>
+              <div className="bg-white p-4 m-4">
+                <Outlet/>
+              </div>
+            </Content>
         </Layout>
       </Layout>
   )

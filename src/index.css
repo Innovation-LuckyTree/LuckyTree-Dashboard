@@ -49,6 +49,40 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
+
+
+.ant-divider.required > .ant-divider-inner-text::before {
+  color: #ff4d4f;
+  content: "*";
+  display: inline-block;
+  font-family: SimSun, sans-serif;
+  font-size: 14px;
+  line-height: 1;
+  margin-inline-end: 4px;
+}
+
+.ant-form-item-additional{
+  background-color: rgba(220, 53, 69, .8);
+  border-radius: .25rem;
+  font-size: .875rem;
+  left: 0;
+  margin-top: .1rem;
+  width:100%;
+  max-width: 100%;
+  padding: .25rem .5rem;
+  position: absolute;
+  top: 75%;
+  z-index: 5;
+}
+
+.ant-form-item-explain-error{
+ color:white !important;   
+}
+.centered-button-modal .ant-modal-footer {
+  text-align: center;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

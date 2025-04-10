@@ -1,0 +1,315 @@
+import { BetsEntity } from "../pages/bets/components/ActiveBetsTable";
+import { DrawItem } from "../pages/bets/components/DrawFilterBar";
+import { ActiveDraw } from "../pages/dashboard/components/ActiveDrawTable";
+import { ResultConfirmation } from "../pages/dashboard/components/ResultConfirmationTable";
+import { ResultHistory } from "../pages/dashboard/components/ResultHistoryTable";
+import { WinningHistory } from "../pages/dashboard/components/WinningHistoryTable";
+import { LimitCombinationEntity } from "../pages/draw-settings/components/LimitCombinationTable";
+import { SoldoutEntity } from "../pages/draw-settings/components/SoldoutCombinationTable";
+import { WinningLimitSettingsData } from "../pages/draw-settings/components/WinningLimitSettings";
+import { Game } from "../pages/draw-settings/DrawSettingsPage";
+
+export const mockActiveDrawData: ActiveDraw[] = [
+    {
+        key:1,
+        gameType: '2D',
+        drawDate: new Date('2023-10-01'),
+        drawSchedule: '10:00 AM',
+        cutoffStart: '09:00 AM',
+        cutoffEnd: '09:30 AM',
+        allowAdvanced: true,
+        statusId: 1,
+        statusName: 'Active',
+        grossStraight: 1000,
+        grossShuffle: 500,
+        totalGross: 1500,
+    },
+    {
+        key:2,
+        gameType: '3D',
+        drawDate: new Date('2023-10-02'),
+        drawSchedule: '11:00 AM',
+        cutoffStart: '10:00 AM',
+        cutoffEnd: '10:30 AM',
+        allowAdvanced: false,
+        statusId: 2,
+        statusName: 'Inactive',
+        grossStraight: 2000,
+        grossShuffle: 1000,
+        totalGross: 3000,
+    },
+];
+
+export const mockResultConfirmationData: ResultConfirmation[] = [
+    {
+        key: 1,
+        gameType: '2D',
+        drawDate: new Date('2023-10-01'),
+        drawSchedule: '10:00 AM',
+        cutoffStart: '09:00 AM',
+        cutoffEnd: '09:30 AM',
+        allowAdvanced: true,
+        statusId: 1,
+        statusName: 'Active',
+        grossStraight: 1000,
+        grossShuffle: 500,
+        totalGross: 1500,
+        winningsStraight: 800,
+        winningsShuffle: 400,
+        totalWinnings: 1200,
+        postedBy: "James",
+        datePosted: new Date('2023-10-01'),
+    },
+    {
+        key: 2,
+        gameType: '3D',
+        drawDate: new Date('2023-10-02'),
+        drawSchedule: '11:00 AM',
+        cutoffStart: '10:00 AM',
+        cutoffEnd: '10:30 AM',
+        allowAdvanced: false,
+        statusId: 2,
+        statusName: 'Inactive',
+        grossStraight: 2000,
+        grossShuffle: 1000,
+        totalGross: 3000,
+        winningsStraight: 1600,
+        winningsShuffle: 800,
+        totalWinnings: 2400,
+        postedBy: "Jessie",
+        datePosted: new Date('2023-10-02'),
+    }
+];
+
+export const mockResultHistoryData: ResultHistory[] = [
+    {
+        key: 1,
+        gameType: '2D',
+        drawDate: new Date('2025-04-06'),
+        drawSchedule: '10:00 AM',
+        cutoffStart: '09:00 AM',
+        cutoffEnd: '09:30 AM',
+        allowAdvanced: true,
+        statusId: 1,
+        statusName: 'Active',
+        grossStraight: 1000,
+        grossShuffle: 500,
+        totalGross: 1500,
+        winningsStraight: 800,
+        winningsShuffle: 400,
+        totalWinnings: 1200,
+        postedBy: "James",
+        datePosted: new Date('2025-04-06'),
+        processedBy: "Admin",
+        dateProcessed: new Date('2025-04-06'),
+    },
+    {
+        key: 2,
+        gameType: '3D',
+        drawDate: new Date('2023-10-02'),
+        drawSchedule: '11:00 AM',
+        cutoffStart: '10:00 AM',
+        cutoffEnd: '10:30 AM',
+        allowAdvanced: false,
+        statusId: 2,
+        statusName: 'Inactive',
+        grossStraight: 2000,
+        grossShuffle: 1000,
+        totalGross: 3000,
+        winningsStraight: 1600,
+        winningsShuffle: 800,
+        totalWinnings: 2400,
+        postedBy: "Jessie",
+        datePosted: new Date('2023-10-02'),
+        processedBy: "Admin",
+        dateProcessed: new Date('2023-10-03'),
+    }
+];
+
+export const mockWinningHistoryData: WinningHistory[] = [
+    {
+        key: 1,
+        gameType: '2D',
+        drawDate: new Date('2023-10-01'),
+        drawSchedule: '10:00 AM',
+        accountId: 12345,
+        accountName: 'John Doe',
+        transactionNumber: 'TXN123456',
+        combination: '12-34',
+        result: 'Win',
+        betStraight: 100,
+        betShuffle: 50,
+        totalBet: 150,
+        winStraight: 200,
+        winShuffle: 100,
+        datePosted: new Date('2023-10-01'),
+        generalCoordinator: 'Alice',
+        coordinator: 'Bob',
+    },
+    {
+        key: 2,
+        gameType: '3D',
+        drawDate: new Date('2023-10-02'),
+        drawSchedule: '11:00 AM',
+        accountId: 67890,
+        accountName: 'Jane Smith',
+        transactionNumber: 'TXN654321',
+        combination: '56-78-90',
+        result: 'Loss',
+        betStraight: 200,
+        betShuffle: 100,
+        totalBet: 300,
+        winStraight: 0,
+        winShuffle: 0,
+        datePosted: new Date('2023-10-02'),
+        generalCoordinator: 'Charlie',
+        coordinator: 'Dave',
+    }
+]; 
+
+export const mockActiveBetsData: BetsEntity[] = [
+    {
+        key: 1,
+        gameType: '2D',
+        drawDate: new Date('2023-10-01'),
+        drawSchedule: '10:00 AM',
+        accountId: 12345,
+        accountName: 'John Doe',
+        transactionNumber: 'TXN123456',
+        combination: '12-34',
+        betStraight: 100,
+        betShuffle: 50,
+        totalBet: 150,
+        datePosted: new Date('2023-10-01'),
+        generalCoordinator: 'Alice',
+        coordinator: 'Bob',
+    },
+    {
+        key: 2,
+        gameType: '3D',
+        drawDate: new Date('2023-10-02'),
+        drawSchedule: '11:00 AM',
+        accountId: 67890,
+        accountName: 'Jane Smith',
+        transactionNumber: 'TXN654321',
+        combination: '56-78-90',
+        betStraight: 200,
+        betShuffle: 100,
+        totalBet: 300,
+        datePosted: new Date('2023-10-02'),
+        generalCoordinator: 'Charlie',
+        coordinator: 'Dave',
+    }
+];
+
+export const drawOptions: DrawItem[] = [
+  { gameType: '2D', drawDate: '2025-03-24T17:00:00' },
+  { gameType: '3D', drawDate: '2025-03-24T17:00:00' },
+];
+
+export const mockGames: Game[] = [
+    {
+        key: 1,
+        gameName: '2D',
+        gameId: 1,
+    },
+    {
+        key: 2,
+        gameName: '3D',
+        gameId: 2,
+    },
+    {
+        key: 3,
+        gameName: 'LAST2',
+        gameId: 3,
+    }
+];
+
+export const mockWinningSettingsData: WinningLimitSettingsData = {
+    id: 1,
+    winningAmount:600,
+    straightLimit:200,
+    shuffleLimit:200,
+
+}
+
+export const mockLimitCombinations: LimitCombinationEntity[] = [
+    {
+        key: 1,
+        combination: 'A-J-4',
+        straightLimit: 200,
+        rumbleLimit: 100,
+    },
+    {
+        key: 2,
+        combination: '10-10-10',
+        straightLimit: 400,
+        rumbleLimit: 200,
+    }
+]
+
+export const mockFetchLimitCombinations = (): Promise<LimitCombinationEntity[]> => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve([
+            {
+              key: 1,
+              combination: "1-5-5",
+              straightLimit: 100000,
+              rumbleLimit: 100000,
+            },
+            {
+              key: 2,
+              combination: "2-2-8",
+              straightLimit: 50000,
+              rumbleLimit: 80000,
+            },
+            {
+              key: 3,
+              combination: "0-1-5",
+              straightLimit: 120000,
+              rumbleLimit: 150000,
+            },
+            {
+              key: 4,
+              combination: "3-7-3",
+              straightLimit: 40000,
+              rumbleLimit: 60000,
+            },
+            {
+              key: 5,
+              combination: "6-4-9",
+              straightLimit: 200000,
+              rumbleLimit: 180000,
+            },
+            {
+              key: 6,
+              combination: "4-8-6",
+              straightLimit: 75000,
+              rumbleLimit: 90000,
+            },
+        ]);
+      }, 500);
+    });
+  };
+
+  export const mockSoldoutCombinations = (): Promise<SoldoutEntity[]> => {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve([
+              {
+                key: 2,
+                combination: "2-2-8",
+              },
+              {
+                key: 5,
+                combination: "6-4-9",
+              },
+              {
+                key: 6,
+                combination: "4-8-6",
+              },
+          ]);
+        }, 500);
+      });
+    };

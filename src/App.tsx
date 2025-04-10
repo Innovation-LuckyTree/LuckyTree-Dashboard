@@ -4,6 +4,9 @@ import { LoginPage } from './pages/login/LoginPage'
 import { DashWrapper } from './components/structural/DashWrapper'
 import { DashboardPage } from './pages/dashboard/DashboardPage'
 import { ConfigProvider } from 'antd'
+import { BetsPage } from './pages/bets/BetsPage'
+import { DrawSettingsPage } from './pages/draw-settings/DrawSettingsPage'
+import '@ant-design/v5-patch-for-react-19';
 function App() {
 
   return (
@@ -29,6 +32,9 @@ function App() {
         <Route path="login" element={<LoginPage />} />
         <Route path="/" element={<DashWrapper />}>
           <Route path="/" element={<DashboardPage />}/>
+          <Route path="/results" element={<DashboardPage />}/>
+          <Route path="/bets" element={<BetsPage />}/>
+          <Route path="/draw-settings" element={<DrawSettingsPage />}/>
         </Route>
       </Routes>
     </ConfigProvider>

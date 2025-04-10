@@ -1,11 +1,12 @@
 import { ControlOutlined, DashboardOutlined, DesktopOutlined, DollarOutlined, FileDoneOutlined, ReadOutlined, ScheduleOutlined } from "@ant-design/icons"
 import { MenuProps } from "antd";
+import { Link } from "react-router-dom";
 
 const routes: MenuProps['items'] = [
     {
       key: '1',
       icon: <DashboardOutlined />,
-      label: 'Dashboard',
+      label: <Link to='/'>Dashboard</Link>,
     },
     {
       key: '2',
@@ -15,17 +16,17 @@ const routes: MenuProps['items'] = [
     {
       key: '3',
       icon: <FileDoneOutlined />,
-      label: 'Results',
+      label: <Link to='/results'>Results</Link>,
     },
     {
       key: '4',
       icon: <ReadOutlined />,
-      label: 'Bets',
+      label: <Link to='/bets'>Bets</Link>,
     },
     {
       key: '5',
       icon: <ScheduleOutlined />,
-      label: 'Draw Settings',
+      label: <Link to='draw-settings'>Draw Settings</Link>,
     },
     {
       key: '6',
