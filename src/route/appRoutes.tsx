@@ -47,8 +47,8 @@ const routes: MenuProps['items'] = [
       icon: <ControlOutlined />,
       label: 'Account',
       children: [
-        { key: '/account/subscribers', label: 'Subscribers' },
-        { key: '/account/operators', label: 'Operators' },
+        { key: '/account/subscribers', label: <Link to='/account/subscribers'>Subscribers</Link> },
+        { key: '/account/operators', label: <Link to='/account/operators'>Operators</Link> },
       ],
     },
   ];

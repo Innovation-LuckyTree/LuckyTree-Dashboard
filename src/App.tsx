@@ -10,6 +10,8 @@ import '@ant-design/v5-patch-for-react-19';
 import { GameConfigurationsPage } from './pages/game-configurations/GameConfigurationsPage'
 import { LoadHistoryPage } from './pages/load-history/LoadHistoryPage'
 import { TransferHistoryPage } from './pages/transfer-history/TransferHistoryPage'
+import { SubscribersPage } from './pages/subscribers/SubscribersPage'
+import { OperatorsPage } from './pages/operators/OperatorsPage'
 function App() {
 
   return (
@@ -41,6 +43,8 @@ function App() {
           <Route path="/game-config" element={<GameConfigurationsPage />}/>
           <Route path="/game-credit/load-history" element={<LoadHistoryPage />}/>
           <Route path="/game-credit/transfer-history" element={<TransferHistoryPage />}/>
+          <Route path="/account/subscribers" element={<SubscribersPage />}/>
+          <Route path="/account/operators" element={<OperatorsPage />}/>
         </Route>
       </Routes>
     </ConfigProvider>

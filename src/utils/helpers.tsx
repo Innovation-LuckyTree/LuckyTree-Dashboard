@@ -29,7 +29,16 @@ export const safeNumber = (val: number | string | null): number => {
   return typeof val === 'number' ? val : 0;
 };
 
-// HELPER MODALS
+export const intlMobileFormat = (number:string) =>{
+  return "+63"+number.substring(1);
+}
+
+export const formatGender = (gender:number | undefined) =>{
+  if(gender == undefined) return "";
+  return gender == 1 ? "Male" : "Female";
+}
+
+//// --------------------HELPER MODALS
 export const cancellationModal = ( handleOkay:()=>void) => {
   Modal.confirm({
     title: 'Confirmation!',
