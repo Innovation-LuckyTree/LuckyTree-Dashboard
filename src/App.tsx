@@ -7,6 +7,7 @@ import { ConfigProvider } from 'antd'
 import { BetsPage } from './pages/bets/BetsPage'
 import { DrawSettingsPage } from './pages/draw-settings/DrawSettingsPage'
 import '@ant-design/v5-patch-for-react-19';
+import { GameConfigurationsPage } from './pages/game-configurations/GameConfigurationsPage'
 function App() {
 
   return (
@@ -35,6 +36,7 @@ function App() {
           <Route path="/results" element={<DashboardPage />}/>
           <Route path="/bets" element={<BetsPage />}/>
           <Route path="/draw-settings" element={<DrawSettingsPage />}/>
+          <Route path="/game-config" element={<GameConfigurationsPage />}/>
         </Route>
       </Routes>
     </ConfigProvider>

@@ -1,27 +1,41 @@
-import { Button, Card, Divider, Flex, Form, InputNumber } from "antd";
+import { Button, Card, Divider, Flex, Form, InputNumber, message } from "antd";
 import { FC, useState } from "react";
 import { mockWinningSettingsData } from "../../../utils/mock";
+import { cancellationModal, safeNumber, updateModal } from "../../../utils/helpers";
 
 
 export interface WinningLimitSettingsData {
   id:number;
   winningAmount:number;
   straightLimit:number;
-  shuffleLimit:number;
+  rumbleLimit:number;
 }
 
 export const WinningLimitSettings: FC = () => {
-  const [settings, setSettings] = useState<WinningLimitSettingsData>(mockWinningSettingsData);
+  const [data, setData] = useState<WinningLimitSettingsData>(mockWinningSettingsData);
+  const [originalData, setOriginalData] = useState<WinningLimitSettingsData>(mockWinningSettingsData);
   const [form] = Form.useForm();
   
-  const handleSubmit = (values: any) => {
-    console.log(values);
-    setSettings(values as WinningLimitSettingsData);
+  const hasChanges = JSON.stringify(data) !== JSON.stringify(originalData);
+
+  const handleUpdate = <K extends keyof WinningLimitSettingsData>( field: K, value: WinningLimitSettingsData[K]) => {
+    setData((prev) => ({...prev, [field]: value, }));
+  };
+
+  const handleCancel = () => {
+    setData(JSON.parse(JSON.stringify(originalData)));
+    form.setFieldsValue(originalData);
+    message.info("Changes have been reset");
+  };
+
+  const handleSave = () => {
+    setOriginalData(JSON.parse(JSON.stringify(data)));
+    message.success("Changes saved successfully");
   };
 
   
   return (
-      <Form form={form} layout="vertical" onFinish={handleSubmit}>
+      <Form form={form} layout="vertical" initialValues={data}>
         <Card size="small">
           {/* Winnings */}
           <Divider
@@ -31,8 +45,11 @@ export const WinningLimitSettings: FC = () => {
             >
               Winnings
           </Divider>
-          <Form.Item style={{marginBottom:0}} name="drawDate" label="Winning Amount" >
-            <InputNumber defaultValue={settings.winningAmount} value={settings.winningAmount} style={{width:250}}/>
+          <Form.Item style={{marginBottom:0}} name="winningAmount" label="Winning Amount" >
+            <InputNumber
+              onChange={(val) => handleUpdate("winningAmount", safeNumber(val))}
+              style={{width:250}}
+            />
           </Form.Item>
           {/* LIMITS */}
           <Divider
@@ -43,11 +60,17 @@ export const WinningLimitSettings: FC = () => {
               Limits
           </Divider>
           <Flex gap={5}>
-            <Form.Item style={{marginBottom:0}} name="drawDate" label="Straight Limit">
-              <InputNumber defaultValue={settings.straightLimit} value={settings.straightLimit} style={{width:200}}/>
+            <Form.Item style={{marginBottom:0}} name="straightLimit" label="Straight Limit">
+              <InputNumber
+              onChange={(val) => handleUpdate("straightLimit", safeNumber(val))}
+                style={{width:200}}
+              />
             </Form.Item>
-            <Form.Item style={{marginBottom:0}} name="drawDate" label="Shuffle Limit">
-              <InputNumber defaultValue={settings.shuffleLimit} value={settings.shuffleLimit} style={{width:200}}/>
+            <Form.Item style={{marginBottom:0}} name="rumbleLimit" label="rumble Limit">
+              <InputNumber
+              onChange={(val) => handleUpdate("rumbleLimit", safeNumber(val))}
+                style={{width:200}}
+              />
             </Form.Item>
           </Flex>
           {/* Actions */}
@@ -55,12 +78,15 @@ export const WinningLimitSettings: FC = () => {
             <Button
               variant="outlined"
               danger
+              onClick={()=>cancellationModal(handleCancel)}
+              disabled={!hasChanges}
               >
                 Cancel
             </Button>
             <Button
               type="primary"
-              htmlType="submit"
+              onClick={()=>updateModal(handleSave)}
+              disabled={!hasChanges}
               className="w-[220px]"
               >
                 Save Changes

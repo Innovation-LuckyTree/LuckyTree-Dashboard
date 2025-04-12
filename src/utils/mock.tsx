@@ -8,6 +8,7 @@ import { LimitCombinationEntity } from "../pages/draw-settings/components/LimitC
 import { SoldoutEntity } from "../pages/draw-settings/components/SoldoutCombinationTable";
 import { WinningLimitSettingsData } from "../pages/draw-settings/components/WinningLimitSettings";
 import { Game } from "../pages/draw-settings/DrawSettingsPage";
+import { DrawScheduleEntity } from "../pages/game-configurations/components/DrawSchedulesTable";
 
 export const mockActiveDrawData: ActiveDraw[] = [
     {
@@ -229,7 +230,7 @@ export const mockWinningSettingsData: WinningLimitSettingsData = {
     id: 1,
     winningAmount:600,
     straightLimit:200,
-    shuffleLimit:200,
+    rumbleLimit:200,
 
 }
 
@@ -294,22 +295,55 @@ export const mockFetchLimitCombinations = (): Promise<LimitCombinationEntity[]> 
   };
 
   export const mockSoldoutCombinations = (): Promise<SoldoutEntity[]> => {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve([
-              {
-                key: 2,
-                combination: "2-2-8",
-              },
-              {
-                key: 5,
-                combination: "6-4-9",
-              },
-              {
-                key: 6,
-                combination: "4-8-6",
-              },
-          ]);
-        }, 500);
-      });
-    };
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve([
+          {
+            key: 2,
+            combination: "2-2-8",
+          },
+          {
+            key: 5,
+            combination: "6-4-9",
+          },
+          {
+            key: 6,
+            combination: "4-8-6",
+          },
+        ]);
+      }, 500);
+    });
+  };
+  
+export const fetchMockDrawSchedules = (): Promise<DrawScheduleEntity[]> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve([
+        {
+          key: '1',
+          scheduleName: 'Morning Draw',
+          cutoffStart: '2025-04-11T08:00:00.000Z',
+          cutoffEnd: '2025-04-11T08:30:00.000Z',
+        },
+        {
+          key: '2',
+          scheduleName: 'Midday Draw',
+          cutoffStart: '2025-04-11T12:00:00.000Z',
+          cutoffEnd: '2025-04-11T12:30:00.000Z',
+        },
+        {
+          key: '3',
+          scheduleName: 'Evening Draw',
+          cutoffStart: '2025-04-11T18:00:00.000Z',
+          cutoffEnd: '2025-04-11T18:30:00.000Z',
+        },
+        {
+          key: '4',
+          scheduleName: 'Late Night Draw',
+          cutoffStart: '2025-04-11T22:00:00.000Z',
+          cutoffEnd: '2025-04-11T22:30:00.000Z',
+        },
+      ]);
+    }, 500); // Simulate 500ms network delay
+  });
+};

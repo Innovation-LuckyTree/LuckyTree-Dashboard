@@ -4,51 +4,51 @@ import { Link } from "react-router-dom";
 
 const routes: MenuProps['items'] = [
     {
-      key: '1',
+      key: '/',
       icon: <DashboardOutlined />,
       label: <Link to='/'>Dashboard</Link>,
     },
     {
-      key: '2',
+      key: '/live-trends',
       icon: <DesktopOutlined />,
       label: 'Live Trends',
     },
     {
-      key: '3',
+      key: '/results',
       icon: <FileDoneOutlined />,
       label: <Link to='/results'>Results</Link>,
     },
     {
-      key: '4',
+      key: '/bets',
       icon: <ReadOutlined />,
       label: <Link to='/bets'>Bets</Link>,
     },
     {
-      key: '5',
+      key: '/draw-settings',
       icon: <ScheduleOutlined />,
       label: <Link to='draw-settings'>Draw Settings</Link>,
     },
     {
-      key: '6',
+      key: '/game-config',
       icon: <ControlOutlined />,
-      label: 'Game Configurations',
+      label: <Link to='game-config'>Game Configurations</Link>,
     },
     {
-      key: '7',
+      key: '/game-credit/load',
       icon: <DollarOutlined />,
       label: 'Game Credit',
       children: [
-        { key: '7.1', label: 'Load History' },
-        { key: '7.2', label: 'Transfer History' },
+        { key: '/game-credit/load-history', label: 'Load History' },
+        { key: '/game-credit/transfer-history', label: 'Transfer History' },
       ],
     },
     {
-      key: '8',
+      key: '/account',
       icon: <ControlOutlined />,
       label: 'Account',
       children: [
-        { key: '8.1', label: 'Subscribers' },
-        { key: '8.2', label: 'Operators' },
+        { key: '/account/subscribers', label: 'Subscribers' },
+        { key: '/account/operators', label: 'Operators' },
       ],
     },
   ];

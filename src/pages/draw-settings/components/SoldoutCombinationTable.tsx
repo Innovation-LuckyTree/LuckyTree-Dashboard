@@ -3,7 +3,7 @@ import { FC, Key, useState } from "react";
 import { mockSoldoutCombinations} from "../../../utils/mock";
 import { useEditableTable } from "../../../hooks/useEditableTable";
 import { DeleteOutlined, PlusCircleFilled } from "@ant-design/icons";
-import { cancellationModal, comboSorter, deletionModal } from "../../../utils/helpers";
+import { cancellationModal, comboSorter, deletionModal, updateModal } from "../../../utils/helpers";
 import { useColumnSearch } from "../../../hooks/useColumnSearch";
 import { AddSoldoutCombination } from "./AddSoldoutModal";
 
@@ -84,7 +84,7 @@ export const SoldoutCombinationTable: FC<{digits:number}> = ({digits})  => {
           <Button size="small" onClick={()=>cancellationModal(handleCancel)} disabled={!hasChanges}>
             Cancel
           </Button>
-          <Button size="small" type="primary" onClick={handleSave} disabled={!hasChanges}>
+          <Button size="small" type="primary" onClick={()=>updateModal(handleSave)} disabled={!hasChanges}>
             Save Changes
           </Button>
       </Space>
