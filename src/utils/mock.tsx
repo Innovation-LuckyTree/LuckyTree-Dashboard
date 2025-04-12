@@ -9,6 +9,8 @@ import { SoldoutEntity } from "../pages/draw-settings/components/SoldoutCombinat
 import { WinningLimitSettingsData } from "../pages/draw-settings/components/WinningLimitSettings";
 import { Game } from "../pages/draw-settings/DrawSettingsPage";
 import { DrawScheduleEntity } from "../pages/game-configurations/components/DrawSchedulesTable";
+import { LoadHistory } from "../pages/load-history/LoadHistoryPage";
+import { TransferHistory } from "../pages/transfer-history/TransferHistoryPage";
 
 export const mockActiveDrawData: ActiveDraw[] = [
     {
@@ -247,7 +249,79 @@ export const mockLimitCombinations: LimitCombinationEntity[] = [
         straightLimit: 400,
         rumbleLimit: 200,
     }
-]
+];
+
+export const mockLoadHistory: LoadHistory[] = [
+  {
+    accountName: "john_doe123",
+    amount: 500,
+    transactionDate: new Date("2025-04-01T10:30:00"),
+    transactedBy: "admin1",
+  },
+  {
+    accountName: "jane_smith",
+    amount: 1000,
+    transactionDate: new Date("2025-04-03T14:45:00"),
+    transactedBy: "cashier02",
+  },
+  {
+    accountName: "lucky_player7",
+    amount: 750,
+    transactionDate: new Date("2025-04-05T09:15:00"),
+    transactedBy: "superadmin",
+  },
+  {
+    accountName: "bet_master88",
+    amount: 1200,
+    transactionDate: new Date("2025-04-08T17:20:00"),
+    transactedBy: "admin2",
+  },
+  {
+    accountName: "slotqueen",
+    amount: 300,
+    transactionDate: new Date("2025-04-09T11:05:00"),
+    transactedBy: "cashier01",
+  },
+];
+
+export const mockTransferHistory: TransferHistory[] = [
+  {
+    sourceAccount: "john_doe123",
+    destinationAccount: "Sample a",
+    amount: 500,
+    transactionDate: new Date("2025-04-01T10:30:00"),
+    transactedBy: "admin1",
+  },
+  {
+    sourceAccount: "jane_smith",
+    destinationAccount: "Sample B",
+    amount: 1000,
+    transactionDate: new Date("2025-04-03T14:45:00"),
+    transactedBy: "cashier02",
+  },
+  {
+    sourceAccount: "lucky_player7",
+    destinationAccount: "Juan",
+    amount: 750,
+    transactionDate: new Date("2025-04-05T09:15:00"),
+    transactedBy: "superadmin",
+  },
+  {
+    sourceAccount: "bet_master88",
+    destinationAccount: "Two",
+    amount: 1200,
+    transactionDate: new Date("2025-04-08T17:20:00"),
+    transactedBy: "admin2",
+  },
+  {
+    sourceAccount: "slotqueen",
+    destinationAccount: "Three",
+    amount: 300,
+    transactionDate: new Date("2025-04-09T11:05:00"),
+    transactedBy: "cashier01",
+  },
+];
+
 
 export const mockFetchLimitCombinations = (): Promise<LimitCombinationEntity[]> => {
     return new Promise((resolve) => {

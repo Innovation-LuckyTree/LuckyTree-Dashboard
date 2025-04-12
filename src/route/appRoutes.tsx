@@ -38,8 +38,8 @@ const routes: MenuProps['items'] = [
       icon: <DollarOutlined />,
       label: 'Game Credit',
       children: [
-        { key: '/game-credit/load-history', label: 'Load History' },
-        { key: '/game-credit/transfer-history', label: 'Transfer History' },
+        { key: '/game-credit/load-history', label: <Link to='game-credit/load-history'>Load History</Link> },
+        { key: '/game-credit/transfer-history', label: <Link to='game-credit/transfer-history'>Transfer History</Link> },
       ],
     },
     {

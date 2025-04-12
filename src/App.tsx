@@ -8,6 +8,8 @@ import { BetsPage } from './pages/bets/BetsPage'
 import { DrawSettingsPage } from './pages/draw-settings/DrawSettingsPage'
 import '@ant-design/v5-patch-for-react-19';
 import { GameConfigurationsPage } from './pages/game-configurations/GameConfigurationsPage'
+import { LoadHistoryPage } from './pages/load-history/LoadHistoryPage'
+import { TransferHistoryPage } from './pages/transfer-history/TransferHistoryPage'
 function App() {
 
   return (
@@ -37,6 +39,8 @@ function App() {
           <Route path="/bets" element={<BetsPage />}/>
           <Route path="/draw-settings" element={<DrawSettingsPage />}/>
           <Route path="/game-config" element={<GameConfigurationsPage />}/>
+          <Route path="/game-credit/load-history" element={<LoadHistoryPage />}/>
+          <Route path="/game-credit/transfer-history" element={<TransferHistoryPage />}/>
         </Route>
       </Routes>
     </ConfigProvider>
