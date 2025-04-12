@@ -38,6 +38,10 @@ export const formatGender = (gender:number | undefined) =>{
   return gender == 1 ? "Male" : "Female";
 }
 
+export const getPercentage = (total: number, amount:number) => {
+  return (amount/total) *100;
+}
+
 //// --------------------HELPER MODALS
 export const cancellationModal = ( handleOkay:()=>void) => {
   Modal.confirm({

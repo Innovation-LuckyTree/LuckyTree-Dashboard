@@ -11,7 +11,7 @@ const routes: MenuProps['items'] = [
     {
       key: '/live-trends',
       icon: <DesktopOutlined />,
-      label: 'Live Trends',
+      label: <Link to='/live-trends'>Live Trends</Link>,
     },
     {
       key: '/results',

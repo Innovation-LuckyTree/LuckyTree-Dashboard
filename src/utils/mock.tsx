@@ -7,8 +7,9 @@ import { WinningHistory } from "../pages/dashboard/components/WinningHistoryTabl
 import { LimitCombinationEntity } from "../pages/draw-settings/components/LimitCombinationTable";
 import { SoldoutEntity } from "../pages/draw-settings/components/SoldoutCombinationTable";
 import { WinningLimitSettingsData } from "../pages/draw-settings/components/WinningLimitSettings";
-import { Game } from "../pages/draw-settings/DrawSettingsPage";
 import { DrawScheduleEntity } from "../pages/game-configurations/components/DrawSchedulesTable";
+import { LiveTrendsEntity, PlayerStatistic } from "../pages/livetrends/components/LiveTrendsDetails";
+import { TopCombinationsEntity } from "../pages/livetrends/components/TopCombinationsTable";
 import { LoadHistory } from "../pages/load-history/LoadHistoryPage";
 import { Operator } from "../pages/operators/OperatorsPage";
 import { Subscriber } from "../pages/subscribers/SubscribersPage";
@@ -210,24 +211,6 @@ export const mockActiveBetsData: BetsEntity[] = [
 export const drawOptions: DrawItem[] = [
   { gameType: '2D', drawDate: '2025-03-24T17:00:00' },
   { gameType: '3D', drawDate: '2025-03-24T17:00:00' },
-];
-
-export const mockGames: Game[] = [
-    {
-        key: 1,
-        gameName: '2D',
-        gameId: 1,
-    },
-    {
-        key: 2,
-        gameName: '3D',
-        gameId: 2,
-    },
-    {
-        key: 3,
-        gameName: 'LAST2',
-        gameId: 3,
-    }
 ];
 
 export const mockWinningSettingsData: WinningLimitSettingsData = {
@@ -783,3 +766,109 @@ export const fetchMockDrawSchedules = (): Promise<DrawScheduleEntity[]> => {
     }, 500); // Simulate 500ms network delay
   });
 };
+  
+export const mockLiveTrends = (): Promise<LiveTrendsEntity> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        totalIn:2,
+        straight:1,
+        rumble: 1,
+        totalBet: 2,
+        cutoff: new Date("2025-04-09T11:05:00")
+      }
+    )}, 500);
+  });
+};
+
+export const mockPlayerStatistics = (): Promise<PlayerStatistic> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        total: 254,
+        played: 150,
+        online: 40,
+        offline: 54,
+        newRegistered: 21,
+      })
+    })
+  })
+};
+
+export const fetchMockTop10Combinations = (): Promise<TopCombinationsEntity[]> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve([
+        {
+          combination: "1-2-3",
+          countBets: 34,
+          totalStraight: 1500,
+          totalRumble: 1200,
+          totalBets: 2700,
+        },
+        {
+          combination: "4-5-6",
+          countBets: 29,
+          totalStraight: 900,
+          totalRumble: 800,
+          totalBets: 1700,
+        },
+        {
+          combination: "7-8-9",
+          countBets: 42,
+          totalStraight: 2000,
+          totalRumble: 1000,
+          totalBets: 3000,
+        },
+        {
+          combination: "0-1-2",
+          countBets: 37,
+          totalStraight: 1800,
+          totalRumble: 1100,
+          totalBets: 2900,
+        },
+        {
+          combination: "3-4-5",
+          countBets: 25,
+          totalStraight: 800,
+          totalRumble: 600,
+          totalBets: 1400,
+        },
+        {
+          combination: "6-7-8",
+          countBets: 40,
+          totalStraight: 2100,
+          totalRumble: 1300,
+          totalBets: 3400,
+        },
+        {
+          combination: "2-3-4",
+          countBets: 32,
+          totalStraight: 1200,
+          totalRumble: 900,
+          totalBets: 2100,
+        },
+        {
+          combination: "5-6-7",
+          countBets: 31,
+          totalStraight: 1100,
+          totalRumble: 1000,
+          totalBets: 2100,
+        },
+        {
+          combination: "8-9-0",
+          countBets: 28,
+          totalStraight: 950,
+          totalRumble: 850,
+          totalBets: 1800,
+        },
+        {
+          combination: "9-0-1",
+          countBets: 36,
+          totalStraight: 1600,
+          totalRumble: 1300,
+          totalBets: 2900,
+        }])
+      }, 500)
+    })
+  };

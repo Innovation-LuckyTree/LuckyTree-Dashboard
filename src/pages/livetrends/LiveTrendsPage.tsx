@@ -1,16 +1,14 @@
-import { FC } from "react"
-import '../../App.css'
-import { Tabs, TabsProps } from "antd";
-import { GameDrawSettings } from "./components/GameDrawSettings";
+import { FC } from "react";
 import { GAME_TYPES } from "../../utils/consts";
+import { Tabs, TabsProps } from "antd";
+import { LiveTrendsDetails } from "./components/LiveTrendsDetails";
 
-export const DrawSettingsPage: FC = () => {
-  
+export const LiveTrendsPage : FC = () => {
   const items: TabsProps['items'] = GAME_TYPES.map((game) => {
     return {
       label: game.label,
       key: game.label,
-      children: <GameDrawSettings gameType={game}/>,
+      children: <LiveTrendsDetails/>,
     }});
   const onChange = (key: string) => {
     console.log(key);

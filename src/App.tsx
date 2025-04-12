@@ -12,6 +12,7 @@ import { LoadHistoryPage } from './pages/load-history/LoadHistoryPage'
 import { TransferHistoryPage } from './pages/transfer-history/TransferHistoryPage'
 import { SubscribersPage } from './pages/subscribers/SubscribersPage'
 import { OperatorsPage } from './pages/operators/OperatorsPage'
+import { LiveTrendsPage } from './pages/livetrends/LiveTrendsPage'
 function App() {
 
   return (
@@ -37,6 +38,7 @@ function App() {
         <Route path="login" element={<LoginPage />} />
         <Route path="/" element={<DashWrapper />}>
           <Route path="/" element={<DashboardPage />}/>
+          <Route path="/live-trends" element={<LiveTrendsPage />}/>
           <Route path="/results" element={<DashboardPage />}/>
           <Route path="/bets" element={<BetsPage />}/>
           <Route path="/draw-settings" element={<DrawSettingsPage />}/>
