@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import { DrawItem } from "../pages/bets/components/DrawFilterBar";
 import { Modal } from "antd";
+import { GAME_TYPES } from "./consts";
 
 export const formatLabel = (item: DrawItem) =>
   `${item.gameType}, ${dayjs(item.drawDate).format('YYYY-MM-DD (hh:mm A)')}`;
@@ -40,6 +41,10 @@ export const formatGender = (gender:number | undefined) =>{
 
 export const getPercentage = (total: number, amount:number) => {
   return (amount/total) *100;
+}
+
+export const getGameType = (gameName:string) => {
+  return GAME_TYPES.find((e) => e.label == gameName);
 }
 
 //// --------------------HELPER MODALS

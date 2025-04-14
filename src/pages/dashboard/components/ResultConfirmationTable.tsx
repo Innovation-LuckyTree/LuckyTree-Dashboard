@@ -1,6 +1,6 @@
-import { FC } from "react"
-import {  Table, TableColumnsType, TableProps } from "antd";
-import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
+import { FC, useState } from "react"
+import {  Dropdown, MenuProps, Table, TableColumnsType, TableProps } from "antd";
+import { CheckCircleFilled, CheckOutlined, CloseCircleFilled, CloseOutlined, ReloadOutlined } from "@ant-design/icons";
 import { mockResultConfirmationData } from "../../../utils/mock";
 import { useColumnSearch } from "../../../hooks/useColumnSearch";
 
@@ -27,6 +27,7 @@ export interface ResultConfirmation {
 export const ResultConfirmationTable: FC =() => {
   
   const { getColumnSearchProps } = useColumnSearch<ResultConfirmation>();
+  const [rowContextMenu, setRowContextMenu] = useState< ResultConfirmation>();
 
   const columns: TableColumnsType<ResultConfirmation> = [
     {
@@ -147,15 +148,55 @@ export const ResultConfirmationTable: FC =() => {
     console.log('params', pagination, filters, sorter, extra);
   };
 
+  const handleRowContextMenu = (record: ResultConfirmation) => (event: React.MouseEvent) => {
+    event.preventDefault();
+    setRowContextMenu(record);
+    console.log(record);
+  };
+
+  const closeRowContextMenu = () => setRowContextMenu(undefined);
+  
+  const refresh: MenuProps['items'] = [
+    {
+      label: 'Confirm Result',
+      key:'1',
+      icon:  <CheckCircleFilled style={{ color: 'green' }} />
+    },
+    {
+      label: 'Decline Result',
+      key: 'decline',
+      icon: <CloseCircleFilled style={{ color: 'red' }} />,
+    },
+    {
+      label: 'Refresh',
+      key: '2',
+      icon: <ReloadOutlined/>
+    },
+  ];
+
   return (
-    <div className="bg-white p-4 overflow-x-auto">
-      <Table<ResultConfirmation> 
-        pagination={{ position: ['bottomLeft'] }}
-        columns={columns}
-        dataSource={mockResultConfirmationData}
-        onChange={onChange}
-        scroll={{ x: 1200 }}
-      />
-    </div>
+    <Dropdown menu={{items: rowContextMenu?.statusId == 2? refresh : refresh.slice(2)}} trigger={['contextMenu']}>
+      <div className="bg-white p-4 overflow-x-auto" 
+        onContextMenu={(e) => {
+          if (!(e.target as HTMLElement).closest('.ant-table-row')) {
+            e.preventDefault();
+            setRowContextMenu(undefined);
+          }
+        }}
+        onClick={closeRowContextMenu}
+      >
+        <Table<ResultConfirmation> 
+          size="small"
+          pagination={{ position: ['bottomLeft'] }}
+          columns={columns}
+          dataSource={mockResultConfirmationData}
+          onChange={onChange}
+          scroll={{ x: 1200 }}
+          onRow={(record) => ({
+            onContextMenu: handleRowContextMenu(record),
+          })}
+        />
+      </div>
+    </Dropdown>
   )
 }

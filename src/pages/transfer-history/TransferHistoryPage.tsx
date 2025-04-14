@@ -2,8 +2,9 @@ import { FC, useState } from "react";
 import { mockTransferHistory } from "../../utils/mock";
 import { useColumnSearch } from "../../hooks/useColumnSearch";
 import dayjs from "dayjs";
-import { Table, TableColumnsType, TableProps } from "antd";
+import { Dropdown, MenuProps, Table, TableColumnsType, TableProps } from "antd";
 import { DateFilterBar } from "../../components/filters/DateFilterBar";
+import { ReloadOutlined, SwapRightOutlined } from "@ant-design/icons";
 
 export interface TransferHistory{
   sourceAccount: string;
@@ -78,17 +79,34 @@ export const TransferHistoryPage: FC = () => {
     console.log('params', pagination, filters, sorter, extra);
   };
 
+  const refresh: MenuProps['items'] = [
+    {
+      label: 'Transfer Credit',
+      key: '1',
+      icon: <SwapRightOutlined/>
+    },
+    {
+      label: 'Refresh',
+      key: '2',
+      icon: <ReloadOutlined/>
+    },
+  ];
+  
   return (
     <div className="bg-white p-4 overflow-x-auto">
       <DateFilterBar onFilter={handleFilter}/>
-      <Table<TransferHistory> 
-        size="small"
-        pagination={{ position: ['bottomLeft'] }}
-        columns={columns}
-        dataSource={filteredData}
-        onChange={onChange}
-        scroll={{ x: 800 }}
-      />
+      <Dropdown menu={{items:refresh}} trigger={['contextMenu']}>
+        <div>
+          <Table<TransferHistory> 
+            size="small"
+            pagination={{ position: ['bottomLeft'] }}
+            columns={columns}
+            dataSource={filteredData}
+            onChange={onChange}
+            scroll={{ x: 800 }}
+          />
+        </div>
+      </Dropdown>
     </div>
   )
 }

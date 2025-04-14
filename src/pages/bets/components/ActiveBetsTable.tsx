@@ -136,6 +136,7 @@ export const ActiveBetsTable: FC =() => {
     <div className="bg-white p-4 overflow-x-auto">
       <DrawFilterBar/>
       <Table<BetsEntity> 
+        size="small"
         pagination={{ position: ['bottomLeft'] }}
         columns={columns}
         dataSource={mockActiveBetsData}

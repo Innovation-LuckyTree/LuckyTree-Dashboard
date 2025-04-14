@@ -1,8 +1,8 @@
-import { Button, Flex, Space, Table, TableColumnsType, Typography, } from "antd";
+import { Button, Dropdown, Flex, MenuProps, Space, Table, TableColumnsType, Typography, } from "antd";
 import { FC, Key, useState } from "react";
 import { mockSoldoutCombinations} from "../../../utils/mock";
 import { useEditableTable } from "../../../hooks/useEditableTable";
-import { DeleteOutlined, PlusCircleFilled } from "@ant-design/icons";
+import { DeleteOutlined, PlusCircleFilled, ReloadOutlined } from "@ant-design/icons";
 import { cancellationModal, comboSorter, deletionModal, updateModal } from "../../../utils/helpers";
 import { useColumnSearch } from "../../../hooks/useColumnSearch";
 import { AddSoldoutCombination } from "./AddSoldoutModal";
@@ -72,36 +72,46 @@ export const SoldoutCombinationTable: FC<{digits:number}> = ({digits})  => {
       ),
     },
   ];
-    
+
+  const refresh: MenuProps['items'] = [
+    {
+      label: 'Refresh',
+      key: '1',
+      icon: <ReloadOutlined/>
+    },
+  ];
+  
   return (
-    <Flex vertical>
-      <Flex justify="space-between" style={{ marginBottom: 10 }}>
-        <Space>
-        <Typography.Text strong>Soldout Combinations</Typography.Text>
-        <Button size="small" icon={<PlusCircleFilled />} onClick={()=>{setOpenAddModal(true)}} />
+    <Dropdown menu={{items:refresh}} trigger={['contextMenu']}>
+      <Flex vertical>
+        <Flex justify="space-between" style={{ marginBottom: 10 }}>
+          <Space>
+          <Typography.Text strong>Soldout Combinations</Typography.Text>
+          <Button size="small" icon={<PlusCircleFilled />} onClick={()=>{setOpenAddModal(true)}} />
+          </Space>
+          <Space style={{ gap: 5 }}>
+            <Button size="small" onClick={()=>cancellationModal(handleCancel)} disabled={!hasChanges}>
+              Cancel
+            </Button>
+            <Button size="small" type="primary" onClick={()=>updateModal(handleSave)} disabled={!hasChanges}>
+              Save Changes
+            </Button>
         </Space>
-        <Space style={{ gap: 5 }}>
-          <Button size="small" onClick={()=>cancellationModal(handleCancel)} disabled={!hasChanges}>
-            Cancel
-          </Button>
-          <Button size="small" type="primary" onClick={()=>updateModal(handleSave)} disabled={!hasChanges}>
-            Save Changes
-          </Button>
-      </Space>
+        </Flex>
+        <Table<SoldoutEntity>
+          bordered
+          rowKey="key"
+          size="small"
+          pagination={{position:['bottomLeft'], pageSize: 10}}
+          columns={columns}
+          dataSource={data}
+          loading={loading}
+          style={{width: 500}}
+        />
+        { openAddModal &&
+          <AddSoldoutCombination open={openAddModal} digits={digits} onClose={() => setOpenAddModal(false)} onAccept={()=>{handleAdd}}/>
+        }
       </Flex>
-      <Table<SoldoutEntity>
-        bordered
-        rowKey="key"
-        size="small"
-        pagination={{position:['bottomLeft'], pageSize: 10}}
-        columns={columns}
-        dataSource={data}
-        loading={loading}
-        style={{width: 500}}
-      />
-      { openAddModal &&
-        <AddSoldoutCombination open={openAddModal} digits={digits} onClose={() => setOpenAddModal(false)} onAccept={()=>{handleAdd}}/>
-      }
-    </Flex>
+    </Dropdown>
   );
 }

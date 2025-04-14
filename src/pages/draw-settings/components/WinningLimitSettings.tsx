@@ -1,7 +1,8 @@
-import { Button, Card, Divider, Flex, Form, InputNumber, message } from "antd";
+import { Button, Card, Divider, Dropdown, Flex, Form, InputNumber, MenuProps, message } from "antd";
 import { FC, useState } from "react";
 import { mockWinningSettingsData } from "../../../utils/mock";
 import { cancellationModal, safeNumber, updateModal } from "../../../utils/helpers";
+import { ReloadOutlined } from "@ant-design/icons";
 
 
 export interface WinningLimitSettingsData {
@@ -33,8 +34,16 @@ export const WinningLimitSettings: FC = () => {
     message.success("Changes saved successfully");
   };
 
+  const refresh: MenuProps['items'] = [
+    {
+      label: 'Refresh',
+      key: '1',
+      icon: <ReloadOutlined/>
+    },
+  ];
   
   return (
+    <Dropdown menu={{items:refresh}} trigger={['contextMenu']}>
       <Form form={form} layout="vertical" initialValues={data}>
         <Card size="small">
           {/* Winnings */}
@@ -94,5 +103,6 @@ export const WinningLimitSettings: FC = () => {
           </Flex>
         </Card>
       </Form>
+    </Dropdown>
   );
 };

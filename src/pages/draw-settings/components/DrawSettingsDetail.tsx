@@ -1,7 +1,8 @@
-import { Button, Card, Checkbox, DatePicker, DatePickerProps, Divider, Flex, Form, Table, TableColumnsType, Typography } from "antd";
+import { Button, Card, Checkbox, DatePicker, DatePickerProps, Divider, Dropdown, Flex, Form, MenuProps, Table, TableColumnsType, Typography } from "antd";
 import { DRAWSCHEDULES } from "../../../utils/consts";
 import { FC, useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
+import { ReloadOutlined } from "@ant-design/icons";
 
 const { Text } = Typography;
 
@@ -60,7 +61,16 @@ export const DrawSettingsDetail: FC = () => {
     },
   ];
   
+  const refresh: MenuProps['items'] = [
+    {
+      label: 'Refresh',
+      key: '1',
+      icon: <ReloadOutlined/>
+    },
+  ];
+  
   return (
+    <Dropdown menu={{items:refresh}} trigger={['contextMenu']}>
       <Form form={form} layout="vertical" onFinish={handleSubmit}>
         <Card size="small">
           <Divider orientation="left" orientationMargin={0} style={{margin:0, color:"grey"}}>Draw Details</Divider>
@@ -99,5 +109,6 @@ export const DrawSettingsDetail: FC = () => {
           </Flex>
         </Card>
       </Form>
+    </Dropdown>
   );
 };

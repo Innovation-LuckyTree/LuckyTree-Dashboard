@@ -14,6 +14,7 @@ import { LoadHistory } from "../pages/load-history/LoadHistoryPage";
 import { Operator } from "../pages/operators/OperatorsPage";
 import { Subscriber } from "../pages/subscribers/SubscribersPage";
 import { TransferHistory } from "../pages/transfer-history/TransferHistoryPage";
+import { GAME_TYPES, GameType } from "./consts";
 
 export const mockActiveDrawData: ActiveDraw[] = [
     {
@@ -56,7 +57,7 @@ export const mockResultConfirmationData: ResultConfirmation[] = [
         cutoffEnd: '09:30 AM',
         allowAdvanced: true,
         statusId: 1,
-        statusName: 'Active',
+        statusName: 'Posted',
         grossStraight: 1000,
         grossShuffle: 500,
         totalGross: 1500,
@@ -75,7 +76,7 @@ export const mockResultConfirmationData: ResultConfirmation[] = [
         cutoffEnd: '10:30 AM',
         allowAdvanced: false,
         statusId: 2,
-        statusName: 'Inactive',
+        statusName: 'Pending',
         grossStraight: 2000,
         grossShuffle: 1000,
         totalGross: 3000,
@@ -872,3 +873,9 @@ export const fetchMockTop10Combinations = (): Promise<TopCombinationsEntity[]> =
       }, 500)
     })
   };
+
+export const mockFetchGameTypes = (): Promise<GameType[]> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(GAME_TYPES)},500)});
+}

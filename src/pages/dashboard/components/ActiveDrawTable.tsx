@@ -1,8 +1,10 @@
-import { FC } from "react"
-import { Table, TableColumnsType, TableProps } from "antd";
-import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
+import { FC, useState } from "react"
+import { Dropdown, MenuProps, Table, TableColumnsType, TableProps } from "antd";
+import { CheckOutlined, CloseOutlined, ReloadOutlined, ScheduleFilled } from "@ant-design/icons";
 import { mockActiveDrawData } from "../../../utils/mock";
 import { useColumnSearch } from "../../../hooks/useColumnSearch";
+import { PostResultModal } from "./ManualPostResultModal";
+import { getGameType } from "../../../utils/helpers";
 
 export interface ActiveDraw {
   key: React.Key;
@@ -22,7 +24,17 @@ export interface ActiveDraw {
 export const ActiveDrawTable: FC =() => {
   
   const { getColumnSearchProps } = useColumnSearch<ActiveDraw>();
-  
+  const [openPost, setOpenPost] = useState(false);
+  const [rowContextMenu, setRowContextMenu] = useState< ActiveDraw>();
+
+  const handleRowContextMenu = (record: ActiveDraw) => (event: React.MouseEvent) => {
+    event.preventDefault();
+    setRowContextMenu(record);
+    console.log(record);
+  };
+
+  const closeRowContextMenu = () => setRowContextMenu(undefined);
+
   const columns: TableColumnsType<ActiveDraw> = [
     {
       title: 'Game Type',
@@ -102,19 +114,74 @@ export const ActiveDrawTable: FC =() => {
     },
   ];
 
+  const openPostModal = () => {
+    setOpenPost(true);
+  }
+
   const onChange: TableProps<ActiveDraw>['onChange'] = (pagination, filters, sorter, extra) => {
     console.log('params', pagination, filters, sorter, extra);
   };
+  
+  const refresh: MenuProps['items'] = [
+    {
+      label: 'Manual Post Result',
+      key: '1',
+      icon: <ScheduleFilled />
+    },
+    {
+      label: 'Refresh',
+      key: '2',
+      icon: <ReloadOutlined/>
+    },
+  ];
+
+  const rowMenu: MenuProps['items'] = [
+    {
+      label: 'Manual Post Result',
+      key: '1',
+      icon: <ScheduleFilled />,
+      onClick: ()=>{setRowContextMenu(undefined)}
+    },
+    {
+      label: 'Post Result',
+      key: '2',
+      icon: <ScheduleFilled />
+    },
+    {
+      label: 'Refresh',
+      key: '3',
+      icon: <ReloadOutlined/>
+    },
+  ];
 
   return (
-    <div className="bg-white p-4 overflow-x-auto">
-      <Table<ActiveDraw> 
-        pagination={{ position: ['bottomLeft'] }}
-        columns={columns}
-        dataSource={mockActiveDrawData}
-        onChange={onChange}
-        scroll={{ x: 1500 }}
-      />
-    </div>
+    <>
+      <Dropdown menu={{items:rowContextMenu ? rowMenu :refresh, onClick:openPostModal}} trigger={['contextMenu']}>
+        <div className="bg-white p-4 overflow-x-auto" 
+          onContextMenu={(e) => {
+            if (!(e.target as HTMLElement).closest('.ant-table-row')) {
+              e.preventDefault();
+              setRowContextMenu(undefined);
+            }
+          }}
+          onClick={closeRowContextMenu}
+        >
+          <Table<ActiveDraw> 
+            size="small"
+            pagination={{ position: ['bottomLeft'] }}
+            columns={columns}
+            dataSource={mockActiveDrawData}
+            onChange={onChange}
+            scroll={{ x: 1500 }}
+            onRow={(record) => ({
+              onContextMenu: handleRowContextMenu(record),
+            })}
+          />
+        </div>
+      </Dropdown>
+      {openPost &&
+        <PostResultModal open={openPost} onClose={()=>setOpenPost(false)} gameType={rowContextMenu?getGameType(rowContextMenu?.gameType):undefined}/>
+      }
+    </>
   )
 }

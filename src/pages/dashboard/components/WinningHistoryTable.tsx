@@ -180,6 +180,7 @@ export const WinningHistoryTable: FC =() => {
     <div className="bg-white p-4 overflow-x-auto">
       <GameScheduleFilterBar onFilter={handleFilter}/>
       <Table<WinningHistory> 
+        size="small"
         pagination={{ position: ['bottomLeft'] }}
         columns={columns}
         dataSource={filteredData}

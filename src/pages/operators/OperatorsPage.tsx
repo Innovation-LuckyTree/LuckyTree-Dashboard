@@ -1,9 +1,9 @@
 import { FC, useState } from "react";
 import { mockOperatorsList } from "../../utils/mock";
 import { useColumnSearch } from "../../hooks/useColumnSearch";
-import { Table, TableColumnsType, TableProps } from "antd";
+import { Dropdown, MenuProps, Table, TableColumnsType, TableProps } from "antd";
 import { formatGender, intlMobileFormat } from "../../utils/helpers";
-import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
+import { CheckOutlined, CloseOutlined, EditOutlined, LockOutlined, ReloadOutlined, UserAddOutlined, UserDeleteOutlined } from "@ant-design/icons";
 
 export interface Operator{
   accountName: string;
@@ -25,8 +25,14 @@ export interface Operator{
 export const OperatorsPage: FC = () => {
   const { getColumnSearchProps } = useColumnSearch<Operator>();
   const [filteredData, setFilteredData] = useState<Operator[]>(mockOperatorsList);
-  
-  
+  const [rowContextMenu, setRowContextMenu] = useState<Operator>();
+
+  const handleRowContextMenu = (record: Operator) => (event: React.MouseEvent) => {
+    event.preventDefault();
+    setRowContextMenu(record);
+  };
+
+  const closeRowContextMenu = () => setRowContextMenu(undefined);
 
   const columns: TableColumnsType<Operator> = [
     {
@@ -122,16 +128,60 @@ export const OperatorsPage: FC = () => {
     console.log('params', pagination, filters, sorter, extra);
   };
 
+  const rowMenu: MenuProps['items'] = [
+    {
+      label: 'Add Operator',
+      key: '1',
+      icon: <UserAddOutlined />,
+      onClick: ()=>{setRowContextMenu(undefined)}
+    },
+    {
+      label: 'Modify Operator',
+      key: '2',
+      icon: <EditOutlined />
+    },
+    {
+      label: 'Change Password',
+      key: '4',
+      icon: <LockOutlined/>
+    },
+    {
+      label: 'Block Operator',
+      key: '5',
+      icon: <UserDeleteOutlined />
+    },
+    {
+      label: 'Refresh',
+      key: '6',
+      icon: <ReloadOutlined/>
+    },
+  ];
+
   return (
-    <div className="bg-white p-4 overflow-x-auto">
-      <Table<Operator> 
-        size="small"
-        pagination={{ position: ['bottomLeft'] }}
-        columns={columns}
-        dataSource={filteredData}
-        onChange={onChange}
-        scroll={{ x: 800 }}
-      />
-    </div>
+    <>
+      <Dropdown menu={{items:rowContextMenu ? rowMenu :[rowMenu[0], rowMenu[4]]}} trigger={['contextMenu']}>
+        <div className="bg-white p-4 overflow-x-auto"
+          onContextMenu={(e) => {
+            if (!(e.target as HTMLElement).closest('.ant-table-row')) {
+              e.preventDefault();
+              setRowContextMenu(undefined);
+            }
+          }}
+          onClick={closeRowContextMenu}
+        >
+          <Table<Operator> 
+            size="small"
+            pagination={{ position: ['bottomLeft'] }}
+            columns={columns}
+            dataSource={filteredData}
+            onChange={onChange}
+            scroll={{ x: 800 }}
+            onRow={(record) => ({
+              onContextMenu: handleRowContextMenu(record),
+            })}
+          />
+        </div>
+      </Dropdown>
+    </>
   )
 }

@@ -1,6 +1,6 @@
 import { FC, useState } from "react"
-import {  Table, TableColumnsType, TableProps } from "antd";
-import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
+import {  Dropdown, MenuProps, Table, TableColumnsType, TableProps } from "antd";
+import { CheckOutlined, CloseOutlined, ReloadOutlined } from "@ant-design/icons";
 import { mockResultHistoryData } from "../../../utils/mock";
 import { useColumnSearch } from "../../../hooks/useColumnSearch";
 import { DateFilterBar } from "../../../components/filters/DateFilterBar";
@@ -185,10 +185,20 @@ export const ResultHistoryTable: FC =() => {
     console.log('params', pagination, filters, sorter, extra);
   };
 
+  const refresh: MenuProps['items'] = [
+    {
+      label: 'Refresh',
+      key: '2',
+      icon: <ReloadOutlined/>
+    },
+  ];
+
   return (
+    <Dropdown menu={{items: refresh}} trigger={['contextMenu']}>
     <div className="bg-white p-4 overflow-x-auto">
       <DateFilterBar onFilter={handleFilter}/>
       <Table<ResultHistory> 
+        size="small"
         pagination={{ position: ['bottomLeft'] }}
         columns={columns}
         dataSource={filteredData}
@@ -196,5 +206,6 @@ export const ResultHistoryTable: FC =() => {
         scroll={{ x: 1200 }}
       />
     </div>
+    </Dropdown>
   )
 }
