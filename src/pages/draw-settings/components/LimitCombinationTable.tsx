@@ -1,20 +1,14 @@
 import { Button, Dropdown, Flex, InputNumber, MenuProps, Space, Table, TableColumnsType, Typography, } from "antd";
-import { FC, Key, useState } from "react";
+import { FC, useState } from "react";
 import { mockFetchLimitCombinations} from "../../../utils/mock";
-import { useEditableTable } from "../../../hooks/useEditableTable";
+import { useEditableTable } from "../../../shared/hooks/useEditableTable";
 import { DeleteOutlined, PlusCircleFilled, ReloadOutlined } from "@ant-design/icons";
 import { cancellationModal, comboSorter, deletionModal, updateModal } from "../../../utils/helpers";
-import { useColumnSearch } from "../../../hooks/useColumnSearch";
+import { useColumnSearch } from "../../../shared/hooks/useColumnSearch";
 import { AddLimitModal } from "./AddLimitModal";
+import { LimitCombination } from "../models/LimitCombination";
 
-export interface LimitCombinationEntity {
-    key: Key;
-    combination: string;
-    straightLimit: number;
-    rumbleLimit: number;
-}
-
-export const transformLimitToEntity = (data: any, digits: number): LimitCombinationEntity => {
+export const transformLimitToEntity = (data: any, digits: number): LimitCombination => {
   var keys = []
   for(var i=1; i<=digits;i++){
     keys.push(`combi${i}`);
@@ -24,7 +18,7 @@ export const transformLimitToEntity = (data: any, digits: number): LimitCombinat
     .join('-');
 
   return {
-    key: 9,
+    id: 9,
     combination,
     straightLimit: data.straightLimit,
     rumbleLimit: data.rumbleLimit,
@@ -42,18 +36,18 @@ export const LimitCombinationTable: FC<{digits:number}> = ({digits}) => {
     handleAdd,
     handleCancel,
     handleSave,
-  } = useEditableTable<LimitCombinationEntity>({
-    rowKey: "key",
+  } = useEditableTable<LimitCombination>({
+    rowKey: "id",
     fetchData: mockFetchLimitCombinations,
   });
-  const { getColumnSearchProps} = useColumnSearch<LimitCombinationEntity>();
+  const { getColumnSearchProps} = useColumnSearch<LimitCombination>();
   const [openAddModal, setOpenAddModal] = useState(false);
 
-  const handleDeletion = (key:Key) => {
-    deletionModal(()=>{handleDelete(key)},"Are you sure you want to delete this limit entry?");
+  const handleDeletion = (id:number) => {
+    deletionModal(()=>{handleDelete(id)},"Are you sure you want to delete this limit entry?");
   }
 
-  const columns : TableColumnsType<LimitCombinationEntity>= [
+  const columns : TableColumnsType<LimitCombination>= [
     {
       title: "Combination",
       dataIndex: "combination",
@@ -66,11 +60,11 @@ export const LimitCombinationTable: FC<{digits:number}> = ({digits}) => {
       title: "Straight Limit",
       dataIndex: "straightLimit",
       key: "straightLimit",
-      render: (value: number, record: LimitCombinationEntity) => (
+      render: (value: number, record: LimitCombination) => (
         <InputNumber
           value={value}
           min={0}
-          onChange={(val) => handleUpdate(record.key, "straightLimit", val ||0)}
+          onChange={(val) => handleUpdate(record.id, "straightLimit", val ||0)}
           formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
           parser={(value) => value?.replace(/\$\s?|(,*)/g, '') as unknown as number}
           style={{ width: 150 }}
@@ -81,11 +75,11 @@ export const LimitCombinationTable: FC<{digits:number}> = ({digits}) => {
       title: "Rumble Limit",
       dataIndex: "rumbleLimit",
       key: "rumbleLimit",
-      render: (value: number, record: LimitCombinationEntity) => (
+      render: (value: number, record: LimitCombination) => (
         <InputNumber
           value={value}
           min={0}
-          onChange={(val) => handleUpdate(record.key, "rumbleLimit", val ||0)}
+          onChange={(val) => handleUpdate(record.id, "rumbleLimit", val ||0)}
           formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
           parser={(value) => value?.replace(/\$\s?|(,*)/g, '') as unknown as number}
           style={{ width: 150 }}
@@ -96,12 +90,12 @@ export const LimitCombinationTable: FC<{digits:number}> = ({digits}) => {
       title: "Action",
       key: "action",
       align:"center",
-      render: (_: any, record: LimitCombinationEntity) => (
+      render: (_: any, record: LimitCombination) => (
         <Button
           type="text"
           icon={<DeleteOutlined />}
           danger
-          onClick={() => handleDeletion(record.key)}
+          onClick={() => handleDeletion(record.id)}
         />
       ),
     },
@@ -133,9 +127,9 @@ export const LimitCombinationTable: FC<{digits:number}> = ({digits}) => {
             </Button>
         </Space>
         </Flex>
-        <Table<LimitCombinationEntity>
+        <Table<LimitCombination>
           bordered
-          rowKey="key"
+          rowKey="id"
           size="small"
           pagination={{position:['bottomLeft'], pageSize: 10}}
           columns={columns}

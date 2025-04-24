@@ -1,32 +1,17 @@
 import { FC, useState } from "react"
 import { Table, TableColumnsType, TableProps } from "antd";
 import { mockActiveBetsData} from "../../../utils/mock";
-import { useColumnSearch } from "../../../hooks/useColumnSearch";
-import { GameScheduleFilterBar } from "../../../components/filters/GameScheduleFilterBar";
+import { useColumnSearch } from "../../../shared/hooks/useColumnSearch";
 import dayjs from "dayjs";
+import { GameScheduleFilterBar } from "../../../shared/components/filters/GameScheduleFilterBar";
+import { Bets } from "../models/Bets";
 
-export interface BetsEntity {
-  key: React.Key;
-  gameType: string;
-  drawDate: Date;
-  drawSchedule: string;
-  accountId: number;
-  accountName: string;
-  transactionNumber: string;
-  combination: string;
-  betStraight: number;
-  betShuffle: number;
-  totalBet: number;
-  datePosted: Date;
-  generalCoordinator: string;
-  coordinator: string;
-}
 
 export const BetsHistory: FC =() => {
-  const { getColumnSearchProps } = useColumnSearch<BetsEntity>();
-    const [filteredData, setFilteredData] = useState<BetsEntity[]>(mockActiveBetsData);
+  const { getColumnSearchProps } = useColumnSearch<Bets>();
+    const [filteredData, setFilteredData] = useState<Bets[]>(mockActiveBetsData);
   
-  const columns: TableColumnsType<BetsEntity> = [
+  const columns: TableColumnsType<Bets> = [
     {
       title: 'Game Type',
       width:120,
@@ -148,14 +133,14 @@ export const BetsHistory: FC =() => {
     }
   };
 
-  const onChange: TableProps<BetsEntity>['onChange'] = (pagination, filters, sorter, extra) => {
+  const onChange: TableProps<Bets>['onChange'] = (pagination, filters, sorter, extra) => {
     console.log('params', pagination, filters, sorter, extra);
   };
 
   return (
     <div className="bg-white p-4 overflow-x-auto">
       <GameScheduleFilterBar onFilter={handleFilter}/>
-      <Table<BetsEntity> 
+      <Table<Bets> 
         size="small"
         pagination={{ position: ['bottomLeft'] }}
         columns={columns}

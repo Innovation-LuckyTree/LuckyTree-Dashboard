@@ -1,18 +1,14 @@
 import { Button, Dropdown, Flex, MenuProps, Space, Table, TableColumnsType, Typography, } from "antd";
-import { FC, Key, useState } from "react";
+import { FC, useState } from "react";
 import { mockSoldoutCombinations} from "../../../utils/mock";
-import { useEditableTable } from "../../../hooks/useEditableTable";
+import { useEditableTable } from "../../../shared/hooks/useEditableTable";
 import { DeleteOutlined, PlusCircleFilled, ReloadOutlined } from "@ant-design/icons";
 import { cancellationModal, comboSorter, deletionModal, updateModal } from "../../../utils/helpers";
-import { useColumnSearch } from "../../../hooks/useColumnSearch";
+import { useColumnSearch } from "../../../shared/hooks/useColumnSearch";
 import { AddSoldoutCombination } from "./AddSoldoutModal";
+import { SoldoutCombination } from "../models/SoldoutCombination";
 
-export interface SoldoutEntity {
-    key: Key;
-    combination: string;
-}
-
-export const transformSoldoutToEntity = (data: any, digits: number): SoldoutEntity => {
+export const transformSoldoutToEntity = (data: any, digits: number): SoldoutCombination => {
   var keys = []
   for(var i=1; i<=digits;i++){
     keys.push(`combi${i}`);
@@ -22,7 +18,7 @@ export const transformSoldoutToEntity = (data: any, digits: number): SoldoutEnti
     .join('-');
 
   return {
-    key: 9,
+    id: 9,
     combination
   };
 };
@@ -36,19 +32,19 @@ export const SoldoutCombinationTable: FC<{digits:number}> = ({digits})  => {
     handleAdd,
     handleCancel,
     handleSave,
-  } = useEditableTable<SoldoutEntity>({
-    rowKey: "key",
+  } = useEditableTable<SoldoutCombination>({
+    rowKey: "id",
     fetchData: mockSoldoutCombinations,
   });
-  const { getColumnSearchProps} = useColumnSearch<SoldoutEntity>();
+  const { getColumnSearchProps} = useColumnSearch<SoldoutCombination>();
   const [openAddModal, setOpenAddModal] = useState(false);
   
-  const handleDeletion = (key:Key) => {
-    deletionModal(()=>{handleDelete(key)},"Are you sure you want to delete this limit entry?");
+  const handleDeletion = (id:number) => {
+    deletionModal(()=>{handleDelete(id)},"Are you sure you want to delete this limit entry?");
   }
 
 
-  const columns : TableColumnsType<SoldoutEntity>= [
+  const columns : TableColumnsType<SoldoutCombination>= [
     {
       title: "Combination",
       dataIndex: "combination",
@@ -62,12 +58,12 @@ export const SoldoutCombinationTable: FC<{digits:number}> = ({digits})  => {
       key: "action",
       align:"center",
       width:50,
-      render: (_: any, record: SoldoutEntity) => (
+      render: (_: any, record: SoldoutCombination) => (
         <Button
           type="text"
           icon={<DeleteOutlined />}
           danger
-          onClick={() => handleDeletion(record.key)}
+          onClick={() => handleDeletion(record.id)}
         />
       ),
     },
@@ -98,7 +94,7 @@ export const SoldoutCombinationTable: FC<{digits:number}> = ({digits})  => {
             </Button>
         </Space>
         </Flex>
-        <Table<SoldoutEntity>
+        <Table<SoldoutCombination>
           bordered
           rowKey="key"
           size="small"

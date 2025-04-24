@@ -1,16 +1,17 @@
 import { Divider, Flex, Form, Input, InputRef, Modal } from "antd"
 import { FC, JSX, useRef, useState } from "react"
 import { cancellationModal } from "../../../utils/helpers";
-import { SoldoutEntity, transformSoldoutToEntity } from "./SoldoutCombinationTable";
+import { transformSoldoutToEntity } from "./SoldoutCombinationTable";
+import { SoldoutCombination } from "../models/SoldoutCombination";
 
-export interface AddSoldoutCombination {
+export interface AddSoldoutCombinationProps {
   open: boolean;
   digits: number;
   onClose: () => void;
-  onAccept: (item:SoldoutEntity) => void;
+  onAccept: (item:SoldoutCombination) => void;
 }
 
-export const AddSoldoutCombination: FC<AddSoldoutCombination> =  (props) => {
+export const AddSoldoutCombination: FC<AddSoldoutCombinationProps> =  (props) => {
   const [form] = Form.useForm();
   const [isEmpty, setIsEmpty] = useState(true);
   const inputRefs = useRef<(InputRef | null)[]>([]);
@@ -24,7 +25,7 @@ export const AddSoldoutCombination: FC<AddSoldoutCombination> =  (props) => {
   const onCheck = async () =>{
     try{
       const values = await form.validateFields();
-      let newItem: SoldoutEntity = transformSoldoutToEntity(values,props.digits);
+      let newItem: SoldoutCombination = transformSoldoutToEntity(values,props.digits);
       props.onAccept(newItem);
       props.onClose();
     } catch(errorInfo){
@@ -38,7 +39,7 @@ export const AddSoldoutCombination: FC<AddSoldoutCombination> =  (props) => {
       let index = i;
       inputFields.push(
         <Form.Item
-          className="flex-1"
+          className="flex-1 new-required"
           name={`combi${i}`} 
           rules={[{ required: true, message: `Input your digit #${i}` }]}
           style={{ marginBottom: 0}}

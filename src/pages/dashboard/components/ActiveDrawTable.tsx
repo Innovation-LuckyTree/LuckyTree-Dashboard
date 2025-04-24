@@ -2,24 +2,10 @@ import { FC, useState } from "react"
 import { Dropdown, MenuProps, Table, TableColumnsType, TableProps } from "antd";
 import { CheckOutlined, CloseOutlined, ReloadOutlined, ScheduleFilled } from "@ant-design/icons";
 import { mockActiveDrawData } from "../../../utils/mock";
-import { useColumnSearch } from "../../../hooks/useColumnSearch";
+import { useColumnSearch } from "../../../shared/hooks/useColumnSearch";
 import { PostResultModal } from "./ManualPostResultModal";
 import { getGameType } from "../../../utils/helpers";
-
-export interface ActiveDraw {
-  key: React.Key;
-  gameType: string;
-  drawDate: Date;
-  drawSchedule: string;
-  cutoffStart: string;
-  cutoffEnd: string;
-  allowAdvanced: boolean;
-  statusId: number;
-  statusName: string;
-  grossStraight: number;
-  grossShuffle: number;
-  totalGross: number;
-}
+import { ActiveDraw } from "../models/ActiveDraw";
 
 export const ActiveDrawTable: FC =() => {
   

@@ -1,17 +1,11 @@
 import { FC, useState } from "react";
 import { mockLoadHistory } from "../../utils/mock";
-import { useColumnSearch } from "../../hooks/useColumnSearch";
+import { useColumnSearch } from "../../shared/hooks/useColumnSearch";
 import dayjs from "dayjs";
 import { Dropdown, MenuProps, Table, TableColumnsType, TableProps } from "antd";
-import { DateFilterBar } from "../../components/filters/DateFilterBar";
 import { DollarCircleOutlined, ReloadOutlined } from "@ant-design/icons";
-
-export interface LoadHistory{
-  accountName: string;
-  amount: number;
-  transactionDate: Date;
-  transactedBy: string;
-}
+import { DateFilterBar } from "../../shared/components/filters/DateFilterBar";
+import { LoadHistory } from "./models/LoadHistory";
 
 export const LoadHistoryPage: FC = () => {
   const { getColumnSearchProps } = useColumnSearch<LoadHistory>();

@@ -1,31 +1,15 @@
 import { FC } from "react"
 import { Table, TableColumnsType, TableProps } from "antd";
 import { mockActiveBetsData } from "../../../utils/mock";
-import { useColumnSearch } from "../../../hooks/useColumnSearch";
+import { useColumnSearch } from "../../../shared/hooks/useColumnSearch";
 import { DrawFilterBar } from "./DrawFilterBar";
-
-export interface BetsEntity {
-  key: React.Key;
-  gameType: string;
-  drawDate: Date;
-  drawSchedule: string;
-  accountId: number;
-  accountName: string;
-  transactionNumber: string;
-  combination: string;
-  betStraight: number;
-  betShuffle: number;
-  totalBet: number;
-  datePosted: Date;
-  generalCoordinator: string;
-  coordinator: string;
-}
+import { Bets } from "../models/Bets";
 
 export const ActiveBetsTable: FC =() => {
   
-  const { getColumnSearchProps } = useColumnSearch<BetsEntity>();
+  const { getColumnSearchProps } = useColumnSearch<Bets>();
   
-  const columns: TableColumnsType<BetsEntity> = [
+  const columns: TableColumnsType<Bets> = [
     {
       title: 'Game Type',
       width:120,
@@ -128,14 +112,14 @@ export const ActiveBetsTable: FC =() => {
     }
   ];
 
-  const onChange: TableProps<BetsEntity>['onChange'] = (pagination, filters, sorter, extra) => {
+  const onChange: TableProps<Bets>['onChange'] = (pagination, filters, sorter, extra) => {
     console.log('params', pagination, filters, sorter, extra);
   };
 
   return (
     <div className="bg-white p-4 overflow-x-auto">
       <DrawFilterBar/>
-      <Table<BetsEntity> 
+      <Table<Bets> 
         size="small"
         pagination={{ position: ['bottomLeft'] }}
         columns={columns}

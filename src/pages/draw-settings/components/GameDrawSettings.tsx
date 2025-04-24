@@ -1,6 +1,6 @@
 import { Flex, Tabs, TabsProps } from "antd";
 import { DrawSettingsDetail } from "./DrawSettingsDetail";
-import { WinningLimitSettings } from "./WinningLimitSettings";
+import { WinningLimitSettingsTable } from "./WinningLimitSettingsTable";
 import { FC } from "react";
 import { LimitCombinationTable } from "./LimitCombinationTable";
 import { SoldoutCombinationTable } from "./SoldoutCombinationTable";
@@ -14,7 +14,7 @@ export const GameDrawSettings: FC<{gameType:GameType}> = ({gameType}) => {
       key: '1',
       children: <Flex gap={5}>
                   <DrawSettingsDetail/>
-                  <WinningLimitSettings/>
+                  <WinningLimitSettingsTable/>
                 </Flex>,
     },
     {

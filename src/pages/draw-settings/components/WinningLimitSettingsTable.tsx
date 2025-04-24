@@ -3,23 +3,16 @@ import { FC, useState } from "react";
 import { mockWinningSettingsData } from "../../../utils/mock";
 import { cancellationModal, safeNumber, updateModal } from "../../../utils/helpers";
 import { ReloadOutlined } from "@ant-design/icons";
+import { WinningLimitSettings } from "../models/WinningLimitSettings";
 
-
-export interface WinningLimitSettingsData {
-  id:number;
-  winningAmount:number;
-  straightLimit:number;
-  rumbleLimit:number;
-}
-
-export const WinningLimitSettings: FC = () => {
-  const [data, setData] = useState<WinningLimitSettingsData>(mockWinningSettingsData);
-  const [originalData, setOriginalData] = useState<WinningLimitSettingsData>(mockWinningSettingsData);
+export const WinningLimitSettingsTable: FC = () => {
+  const [data, setData] = useState<WinningLimitSettings>(mockWinningSettingsData);
+  const [originalData, setOriginalData] = useState<WinningLimitSettings>(mockWinningSettingsData);
   const [form] = Form.useForm();
   
   const hasChanges = JSON.stringify(data) !== JSON.stringify(originalData);
 
-  const handleUpdate = <K extends keyof WinningLimitSettingsData>( field: K, value: WinningLimitSettingsData[K]) => {
+  const handleUpdate = <K extends keyof WinningLimitSettings>( field: K, value: WinningLimitSettings[K]) => {
     setData((prev) => ({...prev, [field]: value, }));
   };
 

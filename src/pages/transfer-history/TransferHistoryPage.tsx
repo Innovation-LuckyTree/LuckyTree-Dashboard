@@ -1,18 +1,11 @@
 import { FC, useState } from "react";
 import { mockTransferHistory } from "../../utils/mock";
-import { useColumnSearch } from "../../hooks/useColumnSearch";
+import { useColumnSearch } from "../../shared/hooks/useColumnSearch";
 import dayjs from "dayjs";
 import { Dropdown, MenuProps, Table, TableColumnsType, TableProps } from "antd";
-import { DateFilterBar } from "../../components/filters/DateFilterBar";
 import { ReloadOutlined, SwapRightOutlined } from "@ant-design/icons";
-
-export interface TransferHistory{
-  sourceAccount: string;
-  destinationAccount: string;
-  amount: number;
-  transactionDate: Date;
-  transactedBy: string;
-}
+import { DateFilterBar } from "../../shared/components/filters/DateFilterBar";
+import { TransferHistory } from "./models/TransferHistory";
 
 export const TransferHistoryPage: FC = () => {
   const { getColumnSearchProps } = useColumnSearch<TransferHistory>();

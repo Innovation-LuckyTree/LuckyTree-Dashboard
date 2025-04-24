@@ -4,22 +4,17 @@ import { cancellationModal, formatLabel} from "../../../utils/helpers";
 import {  GameType } from "../../../utils/consts";
 import { PlusCircleOutlined, ReloadOutlined} from "@ant-design/icons";
 import { drawOptions, mockFetchGameTypes } from "../../../utils/mock";
-import { DrawScheduleEntity } from "../../game-configurations/components/DrawSchedulesTable";
 import dayjs, { Dayjs } from "dayjs";
+import { PostResultPayload } from "../models/requests";
+import { DrawSchedule } from "../../game-configurations/models/DrawSchedule";
 
 export interface PostResultModalProps {
   open: boolean;
   gameType: GameType | undefined;
   onClose: () => void;
 }
-export interface PostResultPayload {
-    gameTypeId: number;
-    drawDate: Date;
-    drawSchedule: number;
-    result: string;
-}
 
-export const transformResultToEntity = (data: any, digits: number): PostResultPayload => {
+export const transformResultToPayload = (data: any, digits: number): PostResultPayload => {
   var keys = []
   for(var i=1; i<=digits;i++){
     keys.push(`combi${i}`);
@@ -37,7 +32,7 @@ export const PostResultModal: FC<PostResultModalProps> =  (props) => {
   const [form] = Form.useForm();
   const [isEmpty, setIsEmpty] = useState(true);
   const [selectedGame, setSelectedGame] = useState<GameType | undefined>();
-  const [drawSchedule, setDrawSchedule] = useState<DrawScheduleEntity | undefined>();
+  const [drawSchedule, setDrawSchedule] = useState<DrawSchedule | undefined>();
   const [gameTypes, setGameTypes] = useState<GameType[]>();
   const inputRefs = useRef<(InputRef | null)[]>([]);
   const [dateRange, setDateRange] = useState<Dayjs>(dayjs());
@@ -51,7 +46,7 @@ export const PostResultModal: FC<PostResultModalProps> =  (props) => {
   const onCheck = async () =>{
     try{
       const values = await form.validateFields();
-      let newItem: PostResultPayload = transformResultToEntity(values,(selectedGame?.digits??3));
+      let newItem: PostResultPayload = transformResultToPayload(values,(selectedGame?.digits??3));
       console.log(newItem);
       props.onClose();
     } catch(errorInfo){
@@ -65,7 +60,7 @@ export const PostResultModal: FC<PostResultModalProps> =  (props) => {
       let index = i;
       inputFields.push(
         <Form.Item
-          className="flex-1"
+          className="flex-1 new-required"
           name={`combi${i}`} 
           rules={[{ required: true, message: `Input your digit #${i}` }]}
           style={{ marginBottom: 0}}

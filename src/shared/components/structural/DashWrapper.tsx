@@ -1,13 +1,23 @@
 import { FC, useState } from "react"
 import { Button, Dropdown, Layout, MenuProps, Space } from "antd"
 import { SideBar } from "./SideBar"
-import { Outlet } from "react-router-dom"
+import { Navigate, Outlet, useNavigate } from "react-router-dom"
 import { DollarCircleOutlined, DownOutlined, LockOutlined, LogoutOutlined, MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined } from "@ant-design/icons"
 import { Content, Header } from "antd/es/layout/layout"
+import { useAuthStore } from "../../hooks/useAuthStore"
+import { useAuth } from "../../hooks/useAuth"
 
+// THis containains basic Layout for dashboard as well as AuthGuard for it.
 export const DashWrapper: FC = () => {
+  const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
-
+  const {logout } = useAuth();
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  
+  //  Auth check before rendering the layout
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
   
   const items: MenuProps['items'] = [
     {
@@ -19,6 +29,7 @@ export const DashWrapper: FC = () => {
       icon:<LogoutOutlined/>,
       label: "Sign out",
       key: '1',
+      onClick: ()=>{logout()}
     }
   ];
 

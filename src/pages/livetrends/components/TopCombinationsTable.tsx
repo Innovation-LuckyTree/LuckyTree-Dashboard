@@ -1,17 +1,10 @@
 import { FC, useState } from "react";
 import { Card, Table, TableColumnsType } from "antd";
 import { fetchMockTop10Combinations } from "../../../utils/mock";
-
-export interface TopCombinationsEntity{
-  combination: string;
-  countBets: number;
-  totalStraight: number;
-  totalRumble: number;
-  totalBets: number;
-}
+import { TopCombinations } from "../models/TopCombination";
 
 export const TopCombinationsTable: FC = () => {
-  const [data, setData] = useState<TopCombinationsEntity[]>();
+  const [data, setData] = useState<TopCombinations[]>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   
   useState(()=> {
@@ -21,7 +14,7 @@ export const TopCombinationsTable: FC = () => {
     })
   })
 
-  const columns: TableColumnsType<TopCombinationsEntity> = [
+  const columns: TableColumnsType<TopCombinations> = [
     {
       title: 'Combination',
       width:120,
@@ -56,7 +49,7 @@ export const TopCombinationsTable: FC = () => {
 
   return (
     <Card size="small" className="w-[calc(75%_-_8px)]">
-      <Table<TopCombinationsEntity> 
+      <Table<TopCombinations> 
         size="small"
         pagination={{ position: ['bottomLeft'] }}
         columns={columns}

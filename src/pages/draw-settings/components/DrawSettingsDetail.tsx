@@ -3,15 +3,9 @@ import { DRAWSCHEDULES } from "../../../utils/consts";
 import { FC, useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import { ReloadOutlined } from "@ant-design/icons";
+import { DrawScheduleDetail } from "../models/DrawScheduleDetail";
 
 const { Text } = Typography;
-
-export interface DrawScheduleDetail{
-  drawScheduleId:number;
-  drawSchedule:string;
-  currentDraw:boolean;
-  advanced:boolean;
-}
 
 export const DrawSettingsDetail: FC = () => {
   const [selectedId, setSelectedId] = useState<number | null>(null);

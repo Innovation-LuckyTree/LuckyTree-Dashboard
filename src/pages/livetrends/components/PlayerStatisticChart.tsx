@@ -1,19 +1,12 @@
 import { Card, Divider } from "antd";
 import { FC, useEffect, useState } from "react";
 import { mockPlayerStatistics } from "../../../utils/mock";
-import { ProgressBar } from "../../../components/ProgressBar";
+import { ProgressBar } from "../../../shared/components/ProgressBar";
 import { getPercentage } from "../../../utils/helpers";
-
-export interface PlayerStatistic{
-  total: number;
-  played: number;
-  online: number;
-  offline: number;
-  newRegistered: number;
-}
+import { PlayerStatistics } from "../models/PlayerStatistics";
 
 export const PlayerStatisticChart : FC = () => {
-  const [players, setPlayers] = useState<PlayerStatistic>();
+  const [players, setPlayers] = useState<PlayerStatistics>();
 
   useEffect(() => {
     mockPlayerStatistics().then((res)=>{

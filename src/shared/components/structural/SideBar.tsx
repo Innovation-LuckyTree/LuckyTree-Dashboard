@@ -3,7 +3,7 @@ import { Menu } from "antd"
 import { Content, Header } from "antd/es/layout/layout"
 import Sider from "antd/es/layout/Sider"
 import { FC } from "react"
-import { getSideMenu } from "../../route/appRoutes"
+import { getSideMenu } from "../../../app/appRoutes"
 import { useLocation } from "react-router-dom"
 
 interface SideBarProps {

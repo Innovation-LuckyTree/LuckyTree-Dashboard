@@ -2,31 +2,10 @@ import { FC, useState } from "react"
 import {  Dropdown, MenuProps, Table, TableColumnsType, TableProps } from "antd";
 import { CheckOutlined, CloseOutlined, ReloadOutlined } from "@ant-design/icons";
 import { mockResultHistoryData } from "../../../utils/mock";
-import { useColumnSearch } from "../../../hooks/useColumnSearch";
-import { DateFilterBar } from "../../../components/filters/DateFilterBar";
+import { useColumnSearch } from "../../../shared/hooks/useColumnSearch";
 import dayjs from "dayjs";
-
-export interface ResultHistory {
-  key: React.Key;
-  gameType: string;
-  drawDate: Date;
-  drawSchedule: string;
-  cutoffStart: string;
-  cutoffEnd: string;
-  allowAdvanced: boolean;
-  statusId: number;
-  statusName: string;
-  grossStraight: number;
-  grossShuffle: number;
-  totalGross: number;
-  winningsStraight: number;
-  winningsShuffle: number;
-  totalWinnings: number;
-  postedBy: string;
-  datePosted: Date;
-  processedBy: string;
-  dateProcessed: Date;
-}
+import { DateFilterBar } from "../../../shared/components/filters/DateFilterBar";
+import { ResultHistory } from "../models/ResultHistory";
 
 export const ResultHistoryTable: FC =() => {
   const { getColumnSearchProps } = useColumnSearch<ResultHistory>();

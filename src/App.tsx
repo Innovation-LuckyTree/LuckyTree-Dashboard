@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import { LoginPage } from './pages/login/LoginPage'
-import { DashWrapper } from './components/structural/DashWrapper'
+import { DashWrapper } from './shared/components/structural/DashWrapper'
 import { DashboardPage } from './pages/dashboard/DashboardPage'
 import { ConfigProvider } from 'antd'
 import { BetsPage } from './pages/bets/BetsPage'
@@ -13,6 +13,7 @@ import { TransferHistoryPage } from './pages/transfer-history/TransferHistoryPag
 import { SubscribersPage } from './pages/subscribers/SubscribersPage'
 import { OperatorsPage } from './pages/operators/OperatorsPage'
 import { LiveTrendsPage } from './pages/livetrends/LiveTrendsPage'
+
 function App() {
 
   return (
@@ -35,7 +36,7 @@ function App() {
       }}
     >
       <Routes>
-        <Route path="login" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/" element={<DashWrapper />}>
           <Route path="/" element={<DashboardPage />}/>
           <Route path="/live-trends" element={<LiveTrendsPage />}/>

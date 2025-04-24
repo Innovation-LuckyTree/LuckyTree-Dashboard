@@ -1,19 +1,20 @@
-import { BetsEntity } from "../pages/bets/components/ActiveBetsTable";
-import { DrawItem } from "../pages/bets/components/DrawFilterBar";
-import { ActiveDraw } from "../pages/dashboard/components/ActiveDrawTable";
-import { ResultConfirmation } from "../pages/dashboard/components/ResultConfirmationTable";
-import { ResultHistory } from "../pages/dashboard/components/ResultHistoryTable";
-import { WinningHistory } from "../pages/dashboard/components/WinningHistoryTable";
-import { LimitCombinationEntity } from "../pages/draw-settings/components/LimitCombinationTable";
-import { SoldoutEntity } from "../pages/draw-settings/components/SoldoutCombinationTable";
-import { WinningLimitSettingsData } from "../pages/draw-settings/components/WinningLimitSettings";
-import { DrawScheduleEntity } from "../pages/game-configurations/components/DrawSchedulesTable";
-import { LiveTrendsEntity, PlayerStatistic } from "../pages/livetrends/components/LiveTrendsDetails";
-import { TopCombinationsEntity } from "../pages/livetrends/components/TopCombinationsTable";
-import { LoadHistory } from "../pages/load-history/LoadHistoryPage";
-import { Operator } from "../pages/operators/OperatorsPage";
-import { Subscriber } from "../pages/subscribers/SubscribersPage";
-import { TransferHistory } from "../pages/transfer-history/TransferHistoryPage";
+import { Bets } from "../pages/bets/models/Bets";
+import { ActiveDraw } from "../pages/dashboard/models/ActiveDraw";
+import { ResultConfirmation } from "../pages/dashboard/models/ResultConfirmation";
+import { ResultHistory } from "../pages/dashboard/models/ResultHistory";
+import { WinningHistory } from "../pages/dashboard/models/WinningHistory";
+import { LimitCombination } from "../pages/draw-settings/models/LimitCombination";
+import { SoldoutCombination } from "../pages/draw-settings/models/SoldoutCombination";
+import { WinningLimitSettings } from "../pages/draw-settings/models/WinningLimitSettings";
+import { DrawSchedule } from "../pages/game-configurations/models/DrawSchedule";
+import { LiveTrends } from "../pages/livetrends/models/LiveTrends";
+import { PlayerStatistics } from "../pages/livetrends/models/PlayerStatistics";
+import { TopCombinations } from "../pages/livetrends/models/TopCombination";
+import { LoadHistory } from "../pages/load-history/models/LoadHistory";
+import { Operator } from "../pages/operators/models/Operator";
+import { Subscriber } from "../pages/subscribers/models/Subscriber";
+import { TransferHistory } from "../pages/transfer-history/models/TransferHistory";
+import { DrawItem } from "../shared/types/DrawItem";
 import { GAME_TYPES, GameType } from "./consts";
 
 export const mockActiveDrawData: ActiveDraw[] = [
@@ -174,7 +175,7 @@ export const mockWinningHistoryData: WinningHistory[] = [
     }
 ]; 
 
-export const mockActiveBetsData: BetsEntity[] = [
+export const mockActiveBetsData: Bets[] = [
     {
         key: 1,
         gameType: '2D',
@@ -214,7 +215,7 @@ export const drawOptions: DrawItem[] = [
   { gameType: '3D', drawDate: '2025-03-24T17:00:00' },
 ];
 
-export const mockWinningSettingsData: WinningLimitSettingsData = {
+export const mockWinningSettingsData: WinningLimitSettings = {
     id: 1,
     winningAmount:600,
     straightLimit:200,
@@ -222,15 +223,15 @@ export const mockWinningSettingsData: WinningLimitSettingsData = {
 
 }
 
-export const mockLimitCombinations: LimitCombinationEntity[] = [
+export const mockLimitCombinations: LimitCombination[] = [
     {
-        key: 1,
+        id: 1,
         combination: 'A-J-4',
         straightLimit: 200,
         rumbleLimit: 100,
     },
     {
-        key: 2,
+        id: 2,
         combination: '10-10-10',
         straightLimit: 400,
         rumbleLimit: 200,
@@ -669,42 +670,42 @@ export const mockOperatorsList: Operator[] = [
 ];
 
 
-export const mockFetchLimitCombinations = (): Promise<LimitCombinationEntity[]> => {
+export const mockFetchLimitCombinations = (): Promise<LimitCombination[]> => {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve([
             {
-              key: 1,
+              id: 1,
               combination: "1-5-5",
               straightLimit: 100000,
               rumbleLimit: 100000,
             },
             {
-              key: 2,
+              id: 2,
               combination: "2-2-8",
               straightLimit: 50000,
               rumbleLimit: 80000,
             },
             {
-              key: 3,
+              id: 3,
               combination: "0-1-5",
               straightLimit: 120000,
               rumbleLimit: 150000,
             },
             {
-              key: 4,
+              id: 4,
               combination: "3-7-3",
               straightLimit: 40000,
               rumbleLimit: 60000,
             },
             {
-              key: 5,
+              id: 5,
               combination: "6-4-9",
               straightLimit: 200000,
               rumbleLimit: 180000,
             },
             {
-              key: 6,
+              id: 6,
               combination: "4-8-6",
               straightLimit: 75000,
               rumbleLimit: 90000,
@@ -714,20 +715,20 @@ export const mockFetchLimitCombinations = (): Promise<LimitCombinationEntity[]> 
     });
   };
 
-  export const mockSoldoutCombinations = (): Promise<SoldoutEntity[]> => {
+  export const mockSoldoutCombinations = (): Promise<SoldoutCombination[]> => {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve([
           {
-            key: 2,
+            id: 2,
             combination: "2-2-8",
           },
           {
-            key: 5,
+            id: 5,
             combination: "6-4-9",
           },
           {
-            key: 6,
+            id: 6,
             combination: "4-8-6",
           },
         ]);
@@ -735,30 +736,30 @@ export const mockFetchLimitCombinations = (): Promise<LimitCombinationEntity[]> 
     });
   };
   
-export const fetchMockDrawSchedules = (): Promise<DrawScheduleEntity[]> => {
+export const fetchMockDrawSchedules = (): Promise<DrawSchedule[]> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve([
         {
-          key: '1',
+          id: 1,
           scheduleName: 'Morning Draw',
           cutoffStart: '2025-04-11T08:00:00.000Z',
           cutoffEnd: '2025-04-11T08:30:00.000Z',
         },
         {
-          key: '2',
+          id: 2,
           scheduleName: 'Midday Draw',
           cutoffStart: '2025-04-11T12:00:00.000Z',
           cutoffEnd: '2025-04-11T12:30:00.000Z',
         },
         {
-          key: '3',
+          id: 3,
           scheduleName: 'Evening Draw',
           cutoffStart: '2025-04-11T18:00:00.000Z',
           cutoffEnd: '2025-04-11T18:30:00.000Z',
         },
         {
-          key: '4',
+          id: 4,
           scheduleName: 'Late Night Draw',
           cutoffStart: '2025-04-11T22:00:00.000Z',
           cutoffEnd: '2025-04-11T22:30:00.000Z',
@@ -768,7 +769,7 @@ export const fetchMockDrawSchedules = (): Promise<DrawScheduleEntity[]> => {
   });
 };
   
-export const mockLiveTrends = (): Promise<LiveTrendsEntity> => {
+export const mockLiveTrends = (): Promise<LiveTrends> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({
@@ -782,7 +783,7 @@ export const mockLiveTrends = (): Promise<LiveTrendsEntity> => {
   });
 };
 
-export const mockPlayerStatistics = (): Promise<PlayerStatistic> => {
+export const mockPlayerStatistics = (): Promise<PlayerStatistics> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({
@@ -796,7 +797,7 @@ export const mockPlayerStatistics = (): Promise<PlayerStatistic> => {
   })
 };
 
-export const fetchMockTop10Combinations = (): Promise<TopCombinationsEntity[]> => {
+export const fetchMockTop10Combinations = (): Promise<TopCombinations[]> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve([

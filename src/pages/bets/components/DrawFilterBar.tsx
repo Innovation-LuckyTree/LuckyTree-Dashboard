@@ -1,15 +1,10 @@
-import React, { useState } from 'react';
+import { FC, useState } from 'react';
 import { Select, Button, Space } from 'antd';
 import { SearchOutlined, ReloadOutlined } from '@ant-design/icons';
 import { drawOptions } from '../../../utils/mock';
 import { formatLabel } from '../../../utils/helpers';
 
-export interface DrawItem {
-  gameType: string;
-  drawDate: string;
-}
-
-export const DrawFilterBar: React.FC = () => {
+export const DrawFilterBar: FC = () => {
   const [selected, setSelected] = useState<string | undefined>();
 
   const handleSearch = () => {

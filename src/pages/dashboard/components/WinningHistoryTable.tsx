@@ -1,29 +1,10 @@
 import { FC, useState } from "react"
 import { Table, TableColumnsType, TableProps } from "antd";
 import { mockWinningHistoryData } from "../../../utils/mock";
-import { useColumnSearch } from "../../../hooks/useColumnSearch";
+import { useColumnSearch } from "../../../shared/hooks/useColumnSearch";
 import dayjs from "dayjs";
-import { GameScheduleFilterBar } from "../../../components/filters/GameScheduleFilterBar";
-
-export interface WinningHistory {
-  key: React.Key;
-  gameType: string;
-  drawDate: Date;
-  drawSchedule: string;
-  accountId: number;
-  accountName: string;
-  transactionNumber: string;
-  combination: string;
-  result: string;
-  betStraight: number;
-  betShuffle: number;
-  totalBet: number;
-  winStraight: number;
-  winShuffle: number;
-  datePosted: Date;
-  generalCoordinator: string;
-  coordinator: string;
-}
+import { GameScheduleFilterBar } from "../../../shared/components/filters/GameScheduleFilterBar";
+import { WinningHistory } from "../models/WinningHistory";
 
 export const WinningHistoryTable: FC =() => {
   const { getColumnSearchProps } = useColumnSearch<WinningHistory>();

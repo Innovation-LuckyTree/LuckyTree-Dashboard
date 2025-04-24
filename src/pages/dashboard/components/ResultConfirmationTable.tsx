@@ -2,27 +2,9 @@ import { FC, useState } from "react"
 import {  Dropdown, MenuProps, Table, TableColumnsType, TableProps } from "antd";
 import { CheckCircleFilled, CheckOutlined, CloseCircleFilled, CloseOutlined, ReloadOutlined } from "@ant-design/icons";
 import { mockResultConfirmationData } from "../../../utils/mock";
-import { useColumnSearch } from "../../../hooks/useColumnSearch";
+import { useColumnSearch } from "../../../shared/hooks/useColumnSearch";
+import { ResultConfirmation } from "../models/ResultConfirmation";
 
-export interface ResultConfirmation {
-  key: React.Key;
-  gameType: string;
-  drawDate: Date;
-  drawSchedule: string;
-  cutoffStart: string;
-  cutoffEnd: string;
-  allowAdvanced: boolean;
-  statusId: number;
-  statusName: string;
-  grossStraight: number;
-  grossShuffle: number;
-  totalGross: number;
-  winningsStraight: number;
-  winningsShuffle: number;
-  totalWinnings: number;
-  postedBy: string;
-  datePosted: Date;
-}
 
 export const ResultConfirmationTable: FC =() => {
   

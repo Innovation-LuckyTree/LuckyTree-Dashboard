@@ -4,27 +4,12 @@ import { FC, useEffect, useState } from "react";
 import { mockLiveTrends } from "../../../utils/mock";
 import { PlayerStatisticChart } from "./PlayerStatisticChart";
 import { TopCombinationsTable } from "./TopCombinationsTable";
-
-export interface LiveTrendsEntity{
-  totalIn:number;
-  straight:number;
-  rumble: number;
-  totalBet: number;
-  cutoff: Date;
-}
-
-export interface PlayerStatistic{
-  total: number;
-  played: number;
-  online: number;
-  offline: number;
-  newRegistered: number;
-}
+import { LiveTrends } from "../models/LiveTrends";
 
 export const LiveTrendsDetails : FC = () => {
   const [now, setNow] = useState(new Date());
   const [isOpen, setIsOpen] = useState(false);
-  const [data, setData] = useState<LiveTrendsEntity>();
+  const [data, setData] = useState<LiveTrends>();
 
   useEffect(() => {
     mockLiveTrends().then((res) => {

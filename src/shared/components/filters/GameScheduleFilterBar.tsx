@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { DatePicker, Select, Button, Space, Typography } from 'antd';
 import { ReloadOutlined, SearchOutlined } from '@ant-design/icons';
 import dayjs, { Dayjs } from 'dayjs';
-import { formatLabel } from '../../utils/helpers';
-import { drawOptions } from '../../utils/mock';
+import { formatLabel } from '../../../utils/helpers';
+import { drawOptions } from '../../../utils/mock';
 
 const { RangePicker } = DatePicker;
 const { Text } = Typography;

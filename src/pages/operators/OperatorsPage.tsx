@@ -1,26 +1,10 @@
 import { FC, useState } from "react";
 import { mockOperatorsList } from "../../utils/mock";
-import { useColumnSearch } from "../../hooks/useColumnSearch";
+import { useColumnSearch } from "../../shared/hooks/useColumnSearch";
 import { Dropdown, MenuProps, Table, TableColumnsType, TableProps } from "antd";
 import { formatGender, intlMobileFormat } from "../../utils/helpers";
 import { CheckOutlined, CloseOutlined, EditOutlined, LockOutlined, ReloadOutlined, UserAddOutlined, UserDeleteOutlined } from "@ant-design/icons";
-
-export interface Operator{
-  accountName: string;
-  mobileNumber: string;
-  upline: string;
-  accountType: string;
-  creditBalance: number;
-  gender: number | undefined;
-  birthDate: Date;
-  region: string;
-  province: string;
-  municipality: string;
-  barangay: string;
-  completeAddress: string;
-  dateRegistered: Date;
-  isBlocked: boolean;
-}
+import { Operator } from "./models/Operator";
 
 export const OperatorsPage: FC = () => {
   const { getColumnSearchProps } = useColumnSearch<Operator>();
@@ -126,6 +110,7 @@ export const OperatorsPage: FC = () => {
 
   const onChange: TableProps<Operator>['onChange'] = (pagination, filters, sorter, extra) => {
     console.log('params', pagination, filters, sorter, extra);
+    setFilteredData(filteredData);
   };
 
   const rowMenu: MenuProps['items'] = [

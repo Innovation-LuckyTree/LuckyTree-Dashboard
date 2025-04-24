@@ -1,13 +1,14 @@
 import { Divider, Flex, Form, Input, InputNumber, InputRef, Modal } from "antd"
 import { FC, JSX, useRef, useState } from "react"
 import { cancellationModal } from "../../../utils/helpers";
-import { LimitCombinationEntity, transformLimitToEntity } from "./LimitCombinationTable";
+import {  transformLimitToEntity } from "./LimitCombinationTable";
+import { LimitCombination } from "../models/LimitCombination";
 
 export interface AddLimitModalProps {
   open: boolean;
   digits: number;
   onClose: () => void;
-  onAccept: (item:LimitCombinationEntity) => void;
+  onAccept: (item:LimitCombination) => void;
 }
 
 export const AddLimitModal: FC<AddLimitModalProps> =  (props) => {
@@ -24,7 +25,7 @@ export const AddLimitModal: FC<AddLimitModalProps> =  (props) => {
   const onCheck = async () =>{
     try{
       const values = await form.validateFields();
-      let newItem: LimitCombinationEntity = transformLimitToEntity(values,props.digits);
+      let newItem: LimitCombination = transformLimitToEntity(values,props.digits);
       props.onAccept(newItem);
       props.onClose();
     } catch(errorInfo){
@@ -38,7 +39,7 @@ export const AddLimitModal: FC<AddLimitModalProps> =  (props) => {
       let index = i;
       inputFields.push(
         <Form.Item
-          className="flex-1"
+          className="flex-1 new-required"
           name={`combi${i}`} 
           rules={[{ required: true, message: `Input your digit #${i}` }]}
           style={{ marginBottom: 0}}
