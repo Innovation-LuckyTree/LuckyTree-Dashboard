@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
-import { DrawItem } from "../pages/bets/components/DrawFilterBar";
 import { Modal } from "antd";
 import { GAME_TYPES } from "./consts";
+import { DrawItem } from "../shared/types/DrawItem";
 
 export const formatLabel = (item: DrawItem) =>
   `${item.gameType}, ${dayjs(item.drawDate).format('YYYY-MM-DD (hh:mm A)')}`;

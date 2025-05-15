@@ -20,7 +20,6 @@ export const ResultHistoryTable: FC =() => {
       const [start, end] = filters.dateRange;
       const result = mockResultHistoryData.filter((item) => {
         const drawDate = dayjs(item.drawDate).startOf('day');
-        console.log(start, end, drawDate.isSame(dayjs(start)), drawDate.isSame(dayjs(end)));
         return (
           (drawDate.isAfter(dayjs(start)) || drawDate.isSame(dayjs(start))) &&
           drawDate.isBefore(dayjs(end)) || drawDate.isSame(dayjs(end))

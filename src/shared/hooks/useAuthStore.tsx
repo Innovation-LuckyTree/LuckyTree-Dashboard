@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { UserAuth } from '../types/UserAuth';
+import { devtools, persist } from 'zustand/middleware';
 
 interface AuthState {
   isAuthenticated: boolean;
@@ -9,10 +10,24 @@ interface AuthState {
   logout: () => void;
 }
 
-export const useAuthStore = create<AuthState>((set) => ({
-  isAuthenticated: false,
-  token: null,
-  user: null,
-  setUserAuth: (token, user) => set({ isAuthenticated: true, token, user }),
-  logout: () => set({ isAuthenticated: false, token: null }),
-}));
+export const useAuthStore = create<AuthState>()(
+  devtools(
+    persist(
+      (set) => ({
+        isAuthenticated: false,
+        user: null,
+        token: '',
+        setUserAuth: (token, user) =>
+          set({ user, token, isAuthenticated: true }, false, 'setUserAuth'),
+        logout: () =>
+          (set({ user: null, token: '', isAuthenticated: false  }, false, 'logout'),
+          localStorage.removeItem('auth-storage')),
+      }),
+      {
+        name: 'auth-storage',
+        partialize: (state) => ({ user: state.user, token: state.token, isAuthenticated: state.isAuthenticated }),
+      }
+    ),
+    { name: 'AuthStore' }
+  )
+);
