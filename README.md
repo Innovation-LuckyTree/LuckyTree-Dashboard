@@ -7,6 +7,6 @@ This project is for **Lucky Three Dashboard**. This is created using **React TS 
 2. ***npm install*** in the target project.
 3. Run ***npm run dev*** to run the project locally
 
-*Note: check the .env file to for the pointed endpoint
+*Note: check the .env file to for the pointed endpoint*
 
 
