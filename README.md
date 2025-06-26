@@ -9,4 +9,5 @@ This project is for **Lucky Three Dashboard**. This is created using **React TS 
 
 *Note: check the .env file to for the pointed endpoint*
 
-
+DEV
+docker build -t registry.gitlab.com/innovision2/luckytree/dev-lucky-tree-dashboard-web:v1.0.0 .
